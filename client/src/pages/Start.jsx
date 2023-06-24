@@ -1,4 +1,6 @@
 import Layout from "../components/Layout";
+import { useState } from "react";
+import Cancel from "/cancel.png";
 
 function Input({ header, label, placeholder }) {
   return (
@@ -13,7 +15,37 @@ function Input({ header, label, placeholder }) {
   );
 }
 
+function Modal(props) {
+  let setShowModal = props.setShowModal;
+  const handleClose = () => setShowModal(false);
+
+  return (
+    <>
+      <div className="fixed top-0 left-0 w-[100vw] h-screen bg-black opacity-80 z-20" />
+      <div className="fixed flex flex-col justify-between z-40 border border-[#4FCDF2] px-20 py-5 text-center space-y-2">
+        <img
+          src={Cancel}
+          alt="cancel"
+          className="absolute top-5 right-5 w-8 h-8 cursor-pointer"
+          onClick={handleClose}
+        />
+
+        <h2 className="text-[24px] font-bold"> Congrats! Your Game Room </h2>
+        <p className="text-[#4FCDF2]">
+          You will receive %1 of the game reward if your game successfully ends!
+        </p>
+        <p className="text-[#4FCDF2]">It’s time to promote your game room!</p>
+        <button className="bg-[#3072A7] text-white px-5 py-2 mx-auto w-[20rem] mt-2 rounded-3xl border border-[#628EAB] shadow-border_1">
+          Share it on Twitter!
+        </button>
+      </div>
+    </>
+  );
+}
+
 export default function Start() {
+  const [showModal, setShowModal] = useState(false);
+
   const headers = [
     "Name Your Room",
     "When Your Game Will Be Start?",
@@ -53,8 +85,11 @@ export default function Start() {
     />
   ));
 
+  const handleShowModal = () => setShowModal(true);
+
   return (
     <Layout>
+      {showModal && <Modal setShowModal={setShowModal} />}
       <div className="flex flex-col w-dojo px-20">
         <h1 className="text-[58px]">Start A Room</h1>
         <div className="grid grid-cols-2 grid-rows-4 gap-5 items-stretch">
@@ -76,7 +111,10 @@ export default function Start() {
             </div>
           </div>
           <div className="flex flex-col justify-between w-1/2">
-            <button className="bg-[#3072A7] text-white px-5 py-2 mt-2 rounded-3xl border border-[#628EAB]">
+            <button
+              className="bg-[#3072A7] text-white px-5 py-2 mt-2 rounded-3xl border border-[#628EAB]"
+              onClick={handleShowModal}
+            >
               Create Your Game Room
             </button>
           </div>
