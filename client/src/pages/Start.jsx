@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cancel from "/cancel.png";
 
 function Tooltip({ header, label }) {
