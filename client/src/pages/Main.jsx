@@ -1,5 +1,4 @@
 import Layout from "../components/Layout";
-import Logo from "../assets/react.svg";
 import CivilRights from "/civil-rights.png";
 import Strategy from "/random.png";
 import SilverPot from "/silver-pot.png";
@@ -11,7 +10,7 @@ function Intro() {
     <div className="flex flex-row items-center space-x-10 px-10 mt-10">
       <div className="bg-[#D8D8D8] min-w-[300px] min-h-[300px] " />
       <span>
-        <p className="">
+        <p className="text-[18px] font-bold">
           Join a Survivor Game with your{" "}
           <span className="text-[#FF356D]">Starknet NFT community.</span> Be the
           last survivor and take all entry fees.

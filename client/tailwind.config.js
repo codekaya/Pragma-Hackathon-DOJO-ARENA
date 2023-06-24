@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,jsx}"],
   theme: {
     extend: {},
+    width: {
+      dojo: "1000px",
+    },
     maxWidth: {
       dojo: "1000px",
     },
