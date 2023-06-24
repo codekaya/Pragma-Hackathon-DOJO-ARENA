@@ -12,8 +12,6 @@ mod Attack {
     use traits::Into;
     use super::Action;
 
-    
-
     use enter_the_dojo::components::game::{Game, GameTrait};
     use rollyourown::components::player::{ Stats, StatsTrait};
     use enter_the_dojo::constants::{
