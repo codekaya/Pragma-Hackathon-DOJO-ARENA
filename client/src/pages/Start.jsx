@@ -1,16 +1,57 @@
 import Layout from "../components/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cancel from "/cancel.png";
 
-function Input({ header, label, placeholder }) {
+function Tooltip({ header, label }) {
   return (
-    <div className="flex flex-col justify-between">
-      <h2 className="text-[15px] font-bold">{header}</h2>
-      <label className="text-[12px] text-[#4FCDF2] mt-1">{label}</label>
+    <div className="absolute bg-[#040810] -right-[6rem] px-4 py-2 top-0 flex flex-col justify-between border border-[#477f90] w-[10rem] ">
+      <h2 className="text-[15px] font-bold text-center">{header}</h2>
+      <hr className="border-[#4FCDF2] mt-2" />
+      <label className="text-[12px] text-white mt-1">{label}</label>
+    </div>
+  );
+}
+
+function Input({ header, label, placeholder, disabled }) {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div
+      className="relative flex flex-col justify-between"
+      onMouseEnter={() => {
+        setTimeout(() => {
+          setHover(true);
+        }, 500);
+      }}
+      onMouseLeave={() => {
+        setTimeout(() => {
+          setHover(false);
+        }, 500);
+      }}
+    >
+      <h2
+        className="text-[15px] font-bold "
+        style={{ opacity: disabled ? 0.5 : 1 }}
+      >
+        {header}
+      </h2>
+      <label
+        className="text-[12px] text-[#4FCDF2] mt-1"
+        style={{ opacity: disabled ? 0.5 : 1 }}
+      >
+        {label}
+      </label>
       <input
         className="bg-[#02040A] text-white px-5 py-2 mt-2 rounded-lg border border-[#4FCDF2] placeholder:text-center placeholder:text-[12px]"
         placeholder={placeholder}
+        style={{ opacity: disabled ? 0.5 : 1 }}
       />
+      {disabled && hover && (
+        <Tooltip
+          header={"Not Yet"}
+          label={"This feature is not available yet."}
+        />
+      )}
     </div>
   );
 }
@@ -76,12 +117,14 @@ export default function Start() {
     " Enter the Initial HP",
     "Enter the Hunger Level",
   ];
+  const disabled = [false, false, false, false, false, false, true, true];
   const inputs = headers.map((header, index) => (
     <Input
       key={index}
       header={header}
       label={labels[index]}
       placeholder={placeholder[index]}
+      disabled={disabled[index]}
     />
   ));
 
