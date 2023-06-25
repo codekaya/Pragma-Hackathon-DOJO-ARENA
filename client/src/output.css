@@ -744,6 +744,30 @@ video {
   margin-top: auto;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-0 {
+  margin-right: 0px;
+}
+
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
+.ml-40 {
+  margin-left: 10rem;
+}
+
+.ml-80 {
+  margin-left: 20rem;
+}
+
+.ml-64 {
+  margin-left: 16rem;
+}
+
 .block {
   display: block;
 }
@@ -1248,6 +1272,11 @@ video {
 .border-\[\#00CCFF\] {
   --tw-border-opacity: 1;
   border-color: rgb(0 204 255 / var(--tw-border-opacity));
+}
+
+.border-\[\#A2DAFF\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(162 218 255 / var(--tw-border-opacity));
 }
 
 .bg-\[\#00000099\] {
