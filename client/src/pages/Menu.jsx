@@ -3,6 +3,8 @@ import Lobby from "/lobby.png";
 import { Link } from "react-router-dom";
 import MenuBg from "/menu-bg.png";
 import SurvivorGame from "/survivor_game.png";
+import DuelGame from "/1v1_game.png";
+import ListGame from "/list_game.png";
 import { useState } from "react";
 
 import { useAccount, useConnectors } from "@starknet-react/core";
@@ -75,7 +77,11 @@ function GameCard({ name, description, image, link }) {
       to={link}
       className="flex flex-col justify-between items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[17rem] rounded-md"
     >
-      <img src={image} alt="Game" className="w-full" />
+      <img
+        src={image}
+        alt="Game"
+        className="w-[100%] h-[8rem] object-cover rounded-md"
+      />
       <h1 className="text-[15px] font-bold mt-5">{name}</h1>
       <h1 className="text-[11px] text-center">{description}</h1>
     </Link>
@@ -111,13 +117,13 @@ function Catalog() {
               name="1v1 Duel"
               description="If you lost, you lost your NFT"
               link="/duel"
-              image={SurvivorGame}
+              image={DuelGame}
             />
             <GameCard
               name="List Your Game"
               description="Reach us with our form"
               link="/list"
-              image={SurvivorGame}
+              image={ListGame}
             />
           </div>
         </div>

@@ -5,6 +5,7 @@ import Menu from "./pages/Menu";
 import Survivor from "./pages/Survivor";
 import Start from "./pages/Start";
 import Games from "./pages/Games";
+import HunterPunks from "./pages/Hunterpunks";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { StarknetConfig, InjectedConnector } from "@starknet-react/core";
 
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/survivor" element={<Survivor />} />
           <Route path="/start" element={<Start />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/hunterpunks" element={<HunterPunks />} />
         </Routes>
       </BrowserRouter>
     </StarknetConfig>

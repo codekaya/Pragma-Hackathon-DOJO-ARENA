@@ -1,4 +1,4 @@
-import DojoArena from "/dojo_arena.png";
+import DojoArena from "/logo.svg";
 import { useAccount, useConnectors } from "@starknet-react/core";
 import { useState } from "react";
 
@@ -42,7 +42,7 @@ export default function Header() {
         />
       )}
       <div className="flex items-center">
-        <img src={DojoArena} alt="Dojo Arena" className="w-20" />
+        <img src={DojoArena} alt="Dojo Arena" className="w-40" />
       </div>
       <nav className="flex items-center">
         <a href="#" className="text-[15px] mr-5">

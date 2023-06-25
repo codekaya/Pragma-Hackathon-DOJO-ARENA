@@ -876,6 +876,14 @@ video {
   height: 5rem;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
+.h-\[8rem\] {
+  height: 8rem;
+}
+
 .max-h-\[10rem\] {
   max-height: 10rem;
 }
@@ -982,6 +990,10 @@ video {
 
 .w-\[0\.5rem\] {
   width: 0.5rem;
+}
+
+.w-\[100\%\] {
+  width: 100%;
 }
 
 .min-w-\[20vw\] {
@@ -1450,6 +1462,11 @@ video {
 
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-4 {
