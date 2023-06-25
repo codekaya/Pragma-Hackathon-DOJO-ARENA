@@ -1,15 +1,18 @@
 import Layout from "../components/Layout";
-import CivilRights from "/civil-rights.png";
-import Strategy from "/random.png";
-import SilverPot from "/silver-pot.png";
-import Web3 from "/web-3.png";
-import Lobby from "/lobby.png";
+import CivilRights from "/civil-rights.webp";
+import Strategy from "/random.webp";
+import SilverPot from "/silver-pot.webp";
+import Web3 from "/web-3.webp";
 import { Link } from "react-router-dom";
+import Attack from "/attack.webp";
+import Hide from "/hiding.webp";
+import Hunt from "/hunt.webp";
+import SurvivorGame from "/survivor_game.png";
 
 function Intro() {
   return (
     <div className="flex flex-row items-center space-x-10 px-10 mt-10">
-      <img src={Lobby} alt="Lobby" className="w-[20rem] h-[20rem]" />
+      <img src={SurvivorGame} alt="Lobby" className="w-[20rem]" />
       <span>
         <p className="text-[18px] font-bold">
           Join a Survivor Game with your Starknet NFT community. Be the last
@@ -135,7 +138,7 @@ function ToSurvive() {
       </p>
       <div className="grid grid-cols-3 justify-items-center mx-auto gap-5 mt-16">
         <SurvivorCard
-          image={Lobby}
+          image={Hunt}
           title="HUNTING"
           subtitle="Increase Your Health"
           description={
@@ -144,7 +147,7 @@ function ToSurvive() {
         />
 
         <SurvivorCard
-          image={Lobby}
+          image={Attack}
           title="ATTACKING"
           subtitle="Kill Other Champions"
           description={
@@ -153,7 +156,7 @@ function ToSurvive() {
         />
 
         <SurvivorCard
-          image={Lobby}
+          image={Hide}
           title="HIDING"
           subtitle="Be Untouchable For Next Turn"
           description={

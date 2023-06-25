@@ -1,6 +1,9 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
 import games_data from "../assets/games.json";
+import { useAccount } from "@starknet-react/core";
+import { Link } from "react-router-dom";
+import SurvivorGame from "/survivor_game.png";
 
 const randomCharacter = () => {
   let index = Math.floor(Math.random() * 69 + 1);
@@ -52,8 +55,8 @@ const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
         className="hidden appearance-none transition-colors cursor-pointer w-[14px] h-[10px] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-blue-500 bg-red-500"
       />
       <span
-        className={`w-[8rem] h-8 my-auto rounded-full transform transition-transform bg-[#1E3249] border border-white ${
-          isChecked ? "translate-x-[8rem]" : ""
+        className={`w-[8rem] h-8 my-auto rounded-full transform transition-transform shadow-border_1 bg-[#1E3249] border border-white ${
+          isChecked ? "" : "translate-x-[8rem]"
         }`}
       />
       <span className="absolute font-medium text-xs left-3 top-[6px] text-white">
@@ -69,7 +72,7 @@ const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
 function Intro() {
   return (
     <div className="flex flex-row justify-between items-center space-x-10">
-      <div className="min-w-[400px] min-h-[200px] bg-[#FFFFFF] rounded-2xl shadow-lg p-5" />
+      <img src={SurvivorGame} alt="Lobby" className="w-[20rem] rounded-3xl" />
       <div className="flex flex-col space-y-2">
         <h2>Game 1# : Hunter Punks Survival Game</h2>
         <p className="text-[12px]">
@@ -81,9 +84,12 @@ function Intro() {
         </p>
         <p className="text-[12px]">check out notion for more info</p>
         <div className="flex flex-row space-x-2">
-          <button className="text-[9px] bg-[#2275CF] text-white font-bold py-2 px-4 rounded-lg">
+          <Link
+            to="/start"
+            className="text-[9px] bg-[#2275CF] text-white font-bold py-2 px-4 rounded-lg"
+          >
             Create Your Own Room
-          </button>
+          </Link>
           <button className="text-[9px] bg-[#1C4169] text-[#58ABDA] font-bold py-2 px-4 rounded-lg">
             Register Your NFT Collection
           </button>
@@ -116,6 +122,20 @@ function Filters(props) {
           <h2>{name}</h2>
         </div>
       ))}
+      <div
+        className="bg-[#02040A77] ml-64 px-5 py-2 cursor-pointer duration-300"
+        style={{
+          border: selected === name ? "2px solid #4FCDF2" : "none",
+          boxShadow:
+            selected === name
+              ? "0px 0px 3px rgba(0,231,255, 0.819083)"
+              : "none",
+          color: selected === name ? "#FFFFFF" : "#609CAD",
+        }}
+        onClick={() => setSelected("Leaderboard")}
+      >
+        <h2>🏆 Leaderboard</h2>
+      </div>
     </div>
   );
 }
@@ -135,13 +155,12 @@ function GameCard(props) {
     has_nf,
     participant,
     winner,
-    first,
   } = props;
 
-  console.log(status);
+  const { status: wallet_status } = useAccount();
 
   return (
-    <div className="flex flex-row justify-between items-center border-2 border-[#246CBD] rounded-md pr-4">
+    <div className="flex flex-row justify-between items-center border-2 border-[#246CBD] bg-[#000000] rounded-md pr-4">
       <img
         src={image}
         alt={title}
@@ -170,37 +189,49 @@ function GameCard(props) {
       <span className="w-[8rem] text-[12px] text-right">
         {parseTimestamp(time)}
       </span>
-      {has_nf && status === "Upcoming" && (
-        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
-          Register {fee} ETH
-        </button>
-      )}
-      {!has_nf && status === "Upcoming" && (
-        <button className="text-[14px] w-[15rem] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
-          You Need To Buy This NFT
-        </button>
-      )}
+      {wallet_status === "connected" && (
+        <>
+          {has_nf && status === "Upcoming" && (
+            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+              Register {fee} ETH
+            </button>
+          )}
+          {!has_nf && status === "Upcoming" && (
+            <button className="text-[14px] w-[15rem] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
+              You Need To Buy This NFT
+            </button>
+          )}
 
-      {status === "Ongoing" && participant && (
-        <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
-          Continue To Play
-        </button>
-      )}
-      {status === "Ongoing" && !participant && (
-        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
-          Observe
-        </button>
-      )}
+          {status === "Ongoing" && participant && (
+            <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+              Continue To Play
+            </button>
+          )}
+          {status === "Ongoing" && !participant && (
+            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+              Observe
+            </button>
+          )}
 
-      {status === "Past" && winner && (
-        <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
-          Claim Your Reward
-        </button>
-      )}
+          {status === "Past" && winner && (
+            <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+              Claim Your Reward
+            </button>
+          )}
 
-      {status === "Past" && !winner && (
-        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
-          See Winners
+          {status === "Past" && !winner && (
+            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+              See Winners
+            </button>
+          )}
+        </>
+      )}
+      {wallet_status !== "connected" && (
+        <button
+          className="text-[14px] w-[15rem] text-white border border-[#A2DAFF] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
+          style={{ boxShadow: "0px 0px 14px 4px rgba(169,207,255, 0.638822)" }}
+        >
+          Connect Your Wallet
         </button>
       )}
     </div>
@@ -242,7 +273,11 @@ function GameList(props) {
     <div className="w-[100vw] bg-[#02040A77] border border-[#4FCDF2] shadow-border_2 py-2">
       <div className="w-dojo mx-auto pt-4 pb-20 space-y-4">
         <ToggleSwitch
-          leftLabel={"Briq Collections"}
+          leftLabel={
+            selected === "Upcoming Games"
+              ? "Briq Collections"
+              : "You Participated"
+          }
           rightLabel={"All "}
           onToggle={(newState) => setChecked(newState)}
         />
@@ -287,7 +322,7 @@ export default function Games() {
   const [selected, setSelected] = useState("Upcoming Games");
 
   return (
-    <Layout>
+    <Layout bg_url="/menu-bg.png">
       <Intro />
       <Filters selected={selected} setSelected={setSelected} />
       <GameList selected={selected} />

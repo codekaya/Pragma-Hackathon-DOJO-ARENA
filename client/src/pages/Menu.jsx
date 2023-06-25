@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import Lobby from "/lobby.png";
 import { Link } from "react-router-dom";
+import MenuBg from "/menu-bg.png";
+import SurvivorGame from "/survivor_game.png";
 
 function Intro() {
   return (
@@ -29,9 +31,9 @@ function GameCard({ name, description, image, link }) {
   return (
     <Link
       to={link}
-      className="flex flex-col justify-center items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[20rem] rounded-md"
+      className="flex flex-col justify-between items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[17rem] rounded-md"
     >
-      <img src={image} alt="Game" className="w-[10rem] h-[10rem]" />
+      <img src={image} alt="Game" className="w-full" />
       <h1 className="text-[15px] font-bold mt-5">{name}</h1>
       <h1 className="text-[11px] text-center">{description}</h1>
     </Link>
@@ -61,19 +63,19 @@ function Catalog() {
               name="Arena Survivors"
               description="Be the last survivor. Earn all of the entry fees."
               link="/survivor"
-              image={Lobby}
+              image={SurvivorGame}
             />
             <GameCard
               name="1v1 Duel"
               description="If you lost, you lost your NFT"
               link="/duel"
-              image={Lobby}
+              image={SurvivorGame}
             />
             <GameCard
               name="List Your Game"
               description="Reach us with our form"
               link="/list"
-              image={Lobby}
+              image={SurvivorGame}
             />
           </div>
         </div>
@@ -84,7 +86,7 @@ function Catalog() {
 
 export default function Menu() {
   return (
-    <Layout>
+    <Layout bg_url={MenuBg}>
       <Intro />
       <Catalog />
     </Layout>

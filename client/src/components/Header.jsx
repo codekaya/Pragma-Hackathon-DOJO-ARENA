@@ -57,7 +57,7 @@ export default function Header() {
           </a>
         )}
         <button
-          className="bg-[#1E3249] text-white border border-white shadow-border_1 font-bold py-2 px-4 rounded-full"
+          className="bg-[#1E3249] text-white text-[11px] border border-white shadow-border_1 font-bold py-2 px-8 rounded-full"
           onClick={() => setShowModal(true)}
         >
           {status === "connected"
