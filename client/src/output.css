@@ -651,6 +651,30 @@ video {
   right: 3rem;
 }
 
+.right-40 {
+  right: 10rem;
+}
+
+.top-10 {
+  top: 2.5rem;
+}
+
+.-right-10 {
+  right: -2.5rem;
+}
+
+.-right-20 {
+  right: -5rem;
+}
+
+.-top-10 {
+  top: -2.5rem;
+}
+
+.right-20 {
+  right: 5rem;
+}
+
 .z-20 {
   z-index: 20;
 }
@@ -665,6 +689,10 @@ video {
 
 .z-0 {
   z-index: 0;
+}
+
+.z-30 {
+  z-index: 30;
 }
 
 .mx-2 {
@@ -1210,6 +1238,18 @@ video {
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
 
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
+
+.space-x-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -1446,6 +1486,10 @@ video {
 .bg-\[\#000000\] {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-\[02040A77\] {
+  background-color: 02040A77;
 }
 
 .bg-opacity-75 {

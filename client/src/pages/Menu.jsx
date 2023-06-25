@@ -6,33 +6,9 @@ import SurvivorGame from "/survivor_game.png";
 import DuelGame from "/1v1_game.png";
 import ListGame from "/list_game.png";
 import { useState } from "react";
+import WalletModal from "../components/WalletModal";
 
 import { useAccount, useConnectors } from "@starknet-react/core";
-
-function WalletModal({ setShowModal, connectors, connect }) {
-  return (
-    <div className="fixed z-10 inset-0 overflow-y-auto">
-      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        <div
-          className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
-          aria-hidden="true"
-          onClick={() => setShowModal(false)}
-        />
-        <div className="flex flex-col align-bottom bg-[#02040A] rounded-lg text-left overflow-hidden shadow-xl transform transition-all my-80">
-          {connectors.map((connector) => (
-            <button
-              key={connector.options.id}
-              className="bg-[#FFFFFF] text-black font-bold py-2 px-4 rounded-full w-[200px] mx-auto my-5"
-              onClick={() => connect(connector)}
-            >
-              {connector.options.id}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function Intro() {
   const { status } = useAccount();
@@ -60,7 +36,10 @@ function Intro() {
             className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-4 px-4 rounded-md hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
             onClick={() => setShowModal(true)}
           >
-            <span>Connect Your Wallet</span>
+            <span>
+              {" "}
+              {status === "connected" ? "Connected" : "Connect Wallet"}
+            </span>
           </button>
           <button className="bg-[#02040A] px-4 py-4 border-2 border-[#4FCDF2] rounded-md w-full text-[14px] font-bold text-[#4FCDF2] hover:bg-[#4FCDF2] hover:text-black hover:shadow-button_2 duration-300">
             <span>Register Your NFT Collection</span>

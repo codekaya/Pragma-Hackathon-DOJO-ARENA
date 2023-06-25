@@ -1,9 +1,10 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
 import games_data from "../assets/games.json";
-import { useAccount } from "@starknet-react/core";
+import { useAccount, useConnectors } from "@starknet-react/core";
 import { Link } from "react-router-dom";
 import SurvivorGame from "/survivor_game.png";
+import WalletModal from "../components/WalletModal";
 
 const parseTimestamp = (timestamp) => {
   let seconds = Math.floor(timestamp / 1000) % 60;
@@ -168,6 +169,8 @@ function GameCard(props) {
     has_nf,
     participant,
     winner,
+    showModal,
+    setShowModal,
   } = props;
 
   const { status: wallet_status } = useAccount();
@@ -212,9 +215,12 @@ function GameCard(props) {
           )}
 
           {status === "Ongoing" && participant && (
-            <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+            <Link
+              to="/hunterpunks"
+              className="text-[14px] text-center w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300"
+            >
               Continue To Play
-            </button>
+            </Link>
           )}
           {status === "Ongoing" && !participant && (
             <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
@@ -239,6 +245,7 @@ function GameCard(props) {
         <button
           className="text-[14px] w-[15rem] text-white border border-[#A2DAFF] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
           style={{ boxShadow: "0px 0px 14px 4px rgba(169,207,255, 0.638822)" }}
+          onClick={() => setShowModal(true)}
         >
           Connect Your Wallet
         </button>
@@ -275,7 +282,7 @@ function RoomType(props) {
 }
 
 function GameList(props) {
-  const { selected } = props;
+  const { selected, showModal, setShowModal } = props;
   const [checked, setChecked] = useState(false);
 
   return (
@@ -307,10 +314,10 @@ function GameList(props) {
                 : game.participated
               : true
           )
-          .map((game) => {
+          .map((game, index) => {
             return (
               <GameCard
-                key={game.id}
+                key={index}
                 image={game.image_link}
                 title={game.collection_name}
                 description={game.room_name}
@@ -325,6 +332,8 @@ function GameList(props) {
                 participant={game.participated}
                 winner={game.winner}
                 first={game.first}
+                showModal={showModal}
+                setShowModal={setShowModal}
               />
             );
           })}
@@ -335,12 +344,25 @@ function GameList(props) {
 
 export default function Games() {
   const [selected, setSelected] = useState("Upcoming Games");
+  const [showModal, setShowModal] = useState(false);
+  const { connectors, connect } = useConnectors();
 
   return (
     <Layout bg_url="/menu-bg.png">
+      {showModal && (
+        <WalletModal
+          setShowModal={setShowModal}
+          connectors={connectors}
+          connect={connect}
+        />
+      )}
       <Intro />
       <Filters selected={selected} setSelected={setSelected} />
-      <GameList selected={selected} />
+      <GameList
+        selected={selected}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </Layout>
   );
 }

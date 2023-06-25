@@ -101,17 +101,17 @@ export default function Start() {
     "Give a name for your room. Minimum 6 - Max 20 character allowed",
     "If there is less than 32 users, your game won’t start and your deposit return you later with 10% penalty + gas fees.",
     "Only owners of these NFT collection can join the game.",
-    "It is the entry fee for joining your game. Minimum fee is 20 USDC.  (Fee * Game Participant = Total Reward) Our tool takes 2% commision and you earns %1 reward if your game starts.. ",
+    "It is the entry fee for joining your game. Minimum fee is 0.011 ETH.  (Fee * Game Participant = Total Reward) Our tool takes 2% commision and you earns %1 reward if your game starts.. ",
     "Enter a number for set it for per turn. Minimum is 10, Max is 240 minutes",
     "Enter a max number for your room.  Max number limit is 640 currently. Minimum is always 32 players.",
     "Your players starts with that HP. Minimum is 1200, recommended is 2400, Max is 5000.  Max HP is double of your initial HP.",
     "Enter the number of HP decrease per turn. Minimum is 0, recommended is 1/6x of your initial HP. Max is 1/4 of your initial HP.",
   ];
   const placeholder = [
-    "10h-240h",
+    "Give the best name",
     "10h-240h",
     "-------------",
-    "10h-240h",
+    "Enter a number to determine entry fee in terms of ether",
     "10h-240h",
     "Unlimited",
     " Enter the Initial HP",
@@ -131,12 +131,12 @@ export default function Start() {
   const handleShowModal = () => setShowModal(true);
 
   return (
-    <Layout hasNavbar={false}>
+    <Layout hasNavbar={true}>
       {showModal && <Modal setShowModal={setShowModal} />}
       <div className="flex flex-col w-dojo px-20">
         <h1 className="text-[32px]">Start A Room For</h1>
         <h1 className="text-[32px] text-[#FF356D]">Arena Survivors</h1>
-        <div className="grid grid-cols-2 grid-rows-4 gap-5 items-stretch">
+        <div className="grid grid-cols-2 grid-rows-4 gap-5 items-stretch mt-10">
           {inputs}
         </div>
         <div className="grid grid-cols-2 mt-10 w-full space-x-2">
