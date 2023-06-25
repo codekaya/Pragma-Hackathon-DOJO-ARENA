@@ -4,8 +4,8 @@ mod JoinGame {
     use box::BoxTrait;
     use array::ArrayTrait;
 
-    use rollyourown::components::{game::Game, player::{Stats,StatsTrait}};
-    use rollyourown::constants::MAX_HEALTH;
+    use dojoarena::components::{game::Game, player::{Stats,StatsTrait}};
+    use dojoarena::constants::MAX_HEALTH;
 
     #[event]
     fn PlayerJoined(game_id: u32, player_id: felt252) {}

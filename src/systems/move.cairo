@@ -12,10 +12,10 @@ mod Attack {
     use traits::Into;
     use super::Action;
 
-    use enter_the_dojo::components::game::{Game, GameTrait};
-    use rollyourown::components::player::{ Stats, StatsTrait};
-    use enter_the_dojo::constants::{
-        ATTACK_DAMAGE, ATTACK_CHANCE, HIDE_POINT, HIDE_HEAL_CHANCE, HUNT_POINT, HUNT_DAMAGE, HUNT_CHANCE
+    use dojoarena::components::game::{Game, GameTrait};
+    use dojoarena::components::player::{ Stats, StatsTrait};
+    use dojoarena::constants::{
+        ATTACK_DAMAGE, ATTACK_CHANCE, HIDE_DAMAGE, HIDE_CHANCE, HUNT_POINT, HUNT_DAMAGE, HUNT_CHANCE
     };
 
     #[event]
@@ -55,7 +55,7 @@ mod Attack {
         let seed = starknet::get_tx_info().unbox().transaction_hash;
         let mut damage = calculate_damage(seed, action);
 
-        let opponent_id = attack_to
+        let opponent_id = attack_to;
         
         let opponent_sk: Query = (game_id, opponent_id).into();
         let Stats = commands::<Stats>::entity(opponent_sk);
@@ -88,7 +88,7 @@ mod Attack {
     fn calculate_damage(seed: felt252, action: Action) -> u16 {
         match action {
             Action::Attack(()) => chance_hit(seed, ATTACK_CHANCE, ATTACK_DAMAGE),
-            Action::Hide(()) => chance_hit(seed, HIDE_HEAL_CHANCE, HIDE_POINT),
+            Action::Hide(()) => chance_hit(seed, HIDE_CHANCE, HIDE_DAMAGE),
             Action::Hunt(()) => chance_hit(seed, HUNT_CHANCE, HUNT_POINT),
         }
     }

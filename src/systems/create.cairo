@@ -3,8 +3,8 @@ mod CreateGame {
     use array::ArrayTrait;
     use traits::Into;
 
-    use rollyourown::components::game::Game;
-    use rollyourown::components::player::Stats;
+    use dojoarena::components::game::Game;
+    use dojoarena::components::player::Stats;
 
     #[event]
     fn GameCreated(
