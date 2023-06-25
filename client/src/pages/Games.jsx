@@ -161,11 +161,7 @@ function GameCard(props) {
 
   return (
     <div className="flex flex-row justify-between items-center border-2 border-[#246CBD] bg-[#000000] rounded-md pr-4">
-      <img
-        src={image}
-        alt={title}
-        className="min-w-[3rem] max-w-[3rem] h-[3rem]"
-      />
+      <img src={image} alt={title} className="min-w-[3rem] h-[5rem]" />
       <div className="relative flex flex-col space-y-2 w-[12rem]">
         <h2>{title}</h2>
         <p className="text-[12px]">{description}</p>
@@ -296,7 +292,7 @@ function GameList(props) {
             return (
               <GameCard
                 key={game.id}
-                image={randomCharacter()}
+                image={game.image_link}
                 title={game.collection_name}
                 description={game.room_name}
                 creator={game.room_master}
