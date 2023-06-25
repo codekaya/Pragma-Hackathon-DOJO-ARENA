@@ -18,7 +18,7 @@ mod JoinGame {
         let game = commands::<Game>::entity(game_sk);
         assert(!game.is_finished, 'game is finished');
         assert(game.max_players > game.num_players, 'game is full');
-        assert(game.start_time >= block_info.block_timestamp, 'already started');
+        assert(game.start_time <= block_info.block_timestamp, 'already started');
 
         commands::set_entity(
             (game_id, player_id).into(),

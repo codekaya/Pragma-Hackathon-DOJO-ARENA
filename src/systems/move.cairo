@@ -6,7 +6,7 @@ enum Action {
 }
 
 #[system]
-mod Attack {
+mod Move {
     use array::ArrayTrait;
     use box::BoxTrait;
     use traits::Into;
@@ -26,7 +26,7 @@ mod Attack {
     #[event]
     fn GameOver(game_id: u32, player_id: felt252, opponent_id: felt252 ) {}
 
-    fn execute(ctx: Context, game_id: u32, action: Action, attack_to: felt252) {
+    fn execute(ctx: Context, game_id: u32, action: Action, opponent_id: felt252) {
         
         let block_info = starknet::get_block_info().unbox();
 
@@ -53,7 +53,6 @@ mod Attack {
         let seed = starknet::get_tx_info().unbox().transaction_hash;
         let mut damage = calculate_damage(seed, action);
 
-        let opponent_id = attack_to;
         
         let opponent_sk: Query = (game_id, opponent_id).into();
         let Stats = commands::<Stats>::entity(opponent_sk);
