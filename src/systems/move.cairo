@@ -54,19 +54,12 @@ mod Attack {
         // calculating outcome, use VRF for seed in the future
         let seed = starknet::get_tx_info().unbox().transaction_hash;
         let mut damage = calculate_damage(seed, action);
-//-------------------------------
-        // opposing player
-        let opponent_id = if game.player_one == player_id {
-            game.player_two
-        } else {
-            game.player_one
-        };
-        // only retrieve health for opponent player as their 
-        // special component does not get updated
-        let opponent_sk: Query = (game_id, opponent_id).into();
-        let health = commands::<Health>::entity(opponent_sk);
 
-        // check if killing blow
+        let opponent_id = attack_to
+        
+        let opponent_sk: Query = (game_id, opponent_id).into();
+        let Stats = commands::<Stats>::entity(opponent_sk);
+        let health = Stats.health;
         let killing_blow = if damage >= health.amount {
             damage = health.amount;
             true
@@ -74,25 +67,15 @@ mod Attack {
             false
         };
 
-        // update opponent health
         commands::set_entity(
-            opponent_sk, // opponent storage key
-             (Health { amount: health.amount - damage })
+            opponent_sk, 
+             (Stats { health: health.amount - damage })
         );
-
-        // update game state
         commands::set_entity(
-            game_sk,
-            (Game {
-                player_one: game.player_one,
-                player_two: game.player_two,
-                next_to_move: opponent_id,
-                num_moves: game.num_moves + 1,
-                winner: if killing_blow {
-                    player_id
-                } else {
-                    0
-                }
+            player_sk,
+            (Stats {
+                health: player.health,
+                turns_remaining: player.turns_remaining-1
             })
         );
 
@@ -102,7 +85,6 @@ mod Attack {
             GameOver(game_id, player_id, opponent_id);
         }
     }
-//--------------------------------
     fn calculate_damage(seed: felt252, action: Action) -> u16 {
         match action {
             Action::Attack(()) => chance_hit(seed, ATTACK_CHANCE, ATTACK_DAMAGE),
