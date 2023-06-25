@@ -36,8 +36,6 @@ sozo component schema Game
 >    creator: u250
 > }
 
-
-
 # Start indexer, graphql endpoint at http://localhost:8080
 torii --world-address 0x7f1d6c1b15e03673062d8356dc1174d5d85c310479ec49fe781e8bf89e4c4f8 --manifest path_to_target/manifest.json
 
@@ -50,5 +48,7 @@ Sozo will eventually contain all commands required to interact with your world. 
 
 - VRF system will be added for randomness
 - Games will be created for only NFT collections
+- More importantly even NFT collections on L1 will be able to participate to the games with herodotus
+- Front-end connection with torii
 - More complex data structures
 - Damage system will be updated
