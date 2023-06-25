@@ -75,7 +75,7 @@ function GameCard({ name, description, image, link }) {
   return (
     <Link
       to={link}
-      className="flex flex-col justify-between items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[17rem] rounded-md"
+      className="flex flex-col justify-between items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[17rem] rounded-md transform hover:-translate-y-2 duration-300"
     >
       <img
         src={image}

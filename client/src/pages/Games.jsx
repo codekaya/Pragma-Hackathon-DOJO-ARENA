@@ -29,6 +29,16 @@ const parseTimestamp = (timestamp) => {
   return result.trim();
 };
 
+function Tooltip({ header, label }) {
+  return (
+    <div className="absolute bg-[#040810] -right-[6rem] px-4 py-2 top-0 flex flex-col justify-between border border-[#477f90] w-[10rem] ">
+      <h2 className="text-[15px] font-bold text-center">{header}</h2>
+      <hr className="border-[#4FCDF2] mt-2" />
+      <label className="text-[12px] text-white mt-1">{label}</label>
+    </div>
+  );
+}
+
 const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -95,6 +105,7 @@ function Intro() {
 
 function Filters(props) {
   const names = ["Upcoming Games", "Ongoing Games", "Past Games"];
+  const [leaderboardHover, setLeaderboardHover] = useState(false);
   const { selected, setSelected } = props;
 
   return (
@@ -117,7 +128,9 @@ function Filters(props) {
         </div>
       ))}
       <div
-        className="bg-[#02040A77] ml-64 px-5 py-2 cursor-pointer duration-300"
+        className="relative bg-[#02040A77] ml-64 px-5 py-2 cursor-pointer duration-300"
+        onMouseEnter={() => setTimeout(() => setLeaderboardHover(true), 200)}
+        onMouseLeave={() => setTimeout(() => setLeaderboardHover(false), 200)}
         style={{
           border: selected === name ? "2px solid #4FCDF2" : "none",
           boxShadow:
@@ -128,6 +141,12 @@ function Filters(props) {
         }}
         onClick={() => setSelected("Leaderboard")}
       >
+        {leaderboardHover && (
+          <Tooltip
+            header={"Not Yet"}
+            label={"This feature is not available yet."}
+          />
+        )}
         <h2>🏆 Leaderboard</h2>
       </div>
     </div>
