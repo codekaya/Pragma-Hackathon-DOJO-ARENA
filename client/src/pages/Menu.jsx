@@ -16,7 +16,7 @@ function Intro() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="flex flex-row justify-center items-center space-x-10">
+    <div className="flex flex-col lg:flex-row justify-center items-center lg:space-x-10">
       {showModal && status !== "connected" && (
         <WalletModal
           setShowModal={setShowModal}
@@ -31,7 +31,7 @@ function Intro() {
           the communities of{" "}
           <span className="text-[#FF356D]">your Starknet NFTs.</span>
         </h1>
-        <div className="flex flex-row items-center space-x-10 mt-16 w-full">
+        <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-10 mt-16 w-full">
           <button
             className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-4 px-4 rounded-md hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
             onClick={() => setShowModal(true)}
@@ -85,7 +85,7 @@ function Catalog() {
               Arena games are developed within Dojo.
             </h2>
           </span>
-          <div className="flex flex-row justify-center items-center space-x-10 mt-10 pb-10">
+          <div className="flex flex-col md:flex-row justify-center items-center space-y-5 lg:space-y-0 lg:space-x-10 mt-10 pb-10">
             <GameCard
               name="Arena Survivors"
               description="Be the last survivor. Earn all of the entry fees."

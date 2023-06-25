@@ -133,14 +133,14 @@ export default function Start() {
   return (
     <Layout hasNavbar={true}>
       {showModal && <Modal setShowModal={setShowModal} />}
-      <div className="flex flex-col w-dojo px-20">
+      <div className="flex flex-col lg:w-dojo px-20">
         <h1 className="text-[32px]">Start A Room For</h1>
         <h1 className="text-[32px] text-[#FF356D]">Arena Survivors</h1>
-        <div className="grid grid-cols-2 grid-rows-4 gap-5 items-stretch mt-10">
+        <div className="grid md:grid-cols-2 grid-rows-4 gap-5 items-stretch mt-10">
           {inputs}
         </div>
-        <div className="grid grid-cols-2 mt-10 w-full space-x-2">
-          <div className="flex flex-col justify-between w-1/2">
+        <div className="grid grid-rows-2 lg:grid-cols-2 mt-10 w-full space-x-2">
+          <div className="flex flex-col justify-between lg:w-1/2">
             <h2 className="text-[15px] font-bold">Reward Distribution </h2>
             <label className="text-[12px] text-[#4FCDF2] mt-1">
               Enter the reward mechanism when game ends. More info here.
@@ -154,7 +154,7 @@ export default function Start() {
               </button>
             </div>
           </div>
-          <div className="flex flex-col justify-between w-1/2">
+          <div className="flex flex-col justify-between lg:w-1/2">
             <button
               className="bg-[#3072A7] text-white px-5 py-2 mt-2 rounded-3xl border border-[#628EAB]"
               onClick={handleShowModal}

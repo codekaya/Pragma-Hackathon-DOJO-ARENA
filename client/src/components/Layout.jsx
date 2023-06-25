@@ -10,17 +10,14 @@ export default function Layout({
   if (hasNavbar) {
     return (
       <div
-        className="flex flex-col min-h-screen text-white font-[automate] overflow-x-hidden"
+        className="flex flex-col min-h-screen text-white font-[automate] overflow-x-hidden lg:bg-contain lg:bg-repeat bg-top"
         style={{
           backgroundColor: bg,
           backgroundImage: `url(${bg_url})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "repeat",
-          backgroundPosition: "top",
         }}
       >
         <Header />
-        <main className="flex flex-col max-w-dojo justify-center items-center mx-auto  px-20">
+        <main className="flex flex-col lg:max-w-dojo justify-center items-center md:mx-auto px-4 lg:px-20">
           {children}
         </main>
         <Footer />
@@ -29,16 +26,13 @@ export default function Layout({
   } else {
     return (
       <div
-        className="flex flex-col min-h-screen text-white font-[automate]  overflow-x-hidden"
+        className="flex flex-col min-h-screen text-white font-[automate]  overflow-x-hidden bg-contain bg-repeat bg-top"
         style={{
           backgroundColor: bg,
           backgroundImage: `url(${bg_url})`,
-          backgroundSize: "contain",
-          backgroundRepeat: "repeat",
-          backgroundPosition: "top",
         }}
       >
-        <main className="flex flex-col max-w-dojo justify-center items-center mx-auto py-10 px-20">
+        <main className="flex flex-col lg:max-w-dojo justify-center items-center md:mx-auto lg:py-10 lg:px-20">
           {children}
         </main>
         <Footer />

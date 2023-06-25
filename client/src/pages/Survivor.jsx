@@ -11,10 +11,10 @@ import SurvivorGame from "/survivor_game.png";
 
 function Intro() {
   return (
-    <div className="flex flex-row items-center space-x-10 px-10 mt-10">
-      <img src={SurvivorGame} alt="Lobby" className="w-[20rem]" />
+    <div className="flex flex-col md:flex-row items-center md:space-x-10 px-10 mt-10">
+      <img src={SurvivorGame} alt="Lobby" className="md:w-[20rem]" />
       <span>
-        <p className="text-[18px] font-bold">
+        <p className="text-[18px] font-bold lg:mt-0 mt-5">
           Join a Survivor Game with your Starknet NFT community. Be the last
           survivor and take all entry fees.
         </p>
@@ -61,7 +61,7 @@ function Highlights() {
   return (
     <div className="flex flex-col text-center mt-10">
       <h2 className="text-[24px]">Highlights</h2>
-      <div className="grid grid-cols-4 justify-items-center mx-auto gap-5 mt-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-items-center mx-auto gap-5 mt-12">
         <Highlight
           image={CivilRights}
           title="No Token Advantage"
@@ -95,7 +95,7 @@ function ToJoin() {
       </h1>
 
       <h2 className="text-[24px] font-bold">To Join A Game</h2>
-      <div className="grid grid-cols-2 justify-items-center px-10 mx-auto gap-5">
+      <div className="grid md:grid-cols-2 justify-items-center px-10 mx-auto gap-5">
         <div className="flex flex-col spcae-y-1 border-2 border-black justify-start py-2 px-2 border-2 border-white shadow-border_1 rounded-lg ">
           <h3 className="text-[16px] font-bold">Join a Room</h3>
           <p className="text-[13px] font-light">
@@ -136,7 +136,7 @@ function ToSurvive() {
         epoch longs 6 hours and after the epoch ends you lose -600 health. Each
         epoch, you can do one of them.
       </p>
-      <div className="grid grid-cols-3 justify-items-center mx-auto gap-5 mt-16">
+      <div className="grid md:grid-cols-3 justify-items-center mx-auto gap-5 mt-16">
         <SurvivorCard
           image={Hunt}
           title="HUNTING"
@@ -194,32 +194,40 @@ function Rules() {
           game.
         </li>
       </ul>
-      <div className="grid grid-cols-2 justify-items-center mx-auto gap-5 px-40 mt-20">
+      <div className="grid grid-cols-2 justify-items-center mx-auto gap-5 lg:px-40 mt-20">
         <div className="flex flex-col justify-left border-2 border-white shadow-border_1 rounded-md py-4">
           <h3 className="text-[24px] font-bold"> P2E </h3>
           <ul className="flex flex-col juftify-between space-y-8 text-[12px] font-bold">
             <li className="relative">
               <span>Provides in-game advantage</span>
-              <span className="absolute top-0 -left-[7rem]">Token Holding</span>
+              <span className="hidden lg:block absolute top-0 -left-[7rem]">
+                Token Holding
+              </span>
             </li>
             <li className="relative">
               <span>Early Comers</span>
-              <span className="absolute top-0 -left-[9.1rem]">
+              <span className="hidden lg:block absolute top-0 -left-[9.1rem]">
                 Who has advantage
               </span>
             </li>
             <li> Financial Power has significant advantage on gameplay</li>
             <li className="relative">
               <span>Winner earns in-game token (to sell)</span>
-              <span className="absolute top-0 -left-[7rem]">Winner Takes</span>
+              <span className="hidden lg:block absolute top-0 -left-[7rem]">
+                Winner Takes
+              </span>
             </li>
             <li className="relative">
               <span>P2E’s are Complex</span>
-              <span className="absolute top-0 -left-[6.4rem]">Complexity</span>
+              <span className="hidden lg:block absolute top-0 -left-[6.4rem]">
+                Complexity
+              </span>
             </li>
             <li className="relative">
               <span>aligned with earning money</span>
-              <span className="absolute top-0 -left-[6.5rem]">Philosophy</span>
+              <span className="hidden lg:block absolute top-0 -left-[6.5rem]">
+                Philosophy
+              </span>
             </li>
           </ul>
         </div>

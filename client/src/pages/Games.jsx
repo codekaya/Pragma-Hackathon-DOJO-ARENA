@@ -76,9 +76,13 @@ const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
 
 function Intro() {
   return (
-    <div className="flex flex-row justify-between items-center space-x-10">
-      <img src={SurvivorGame} alt="Lobby" className="w-[20rem] rounded-3xl" />
-      <div className="flex flex-col space-y-2">
+    <div className="flex flex-col lg:flex-row justify-between items-center lg:space-x-10">
+      <img
+        src={SurvivorGame}
+        alt="Lobby"
+        className="w-[80vw] lg:w-[20rem] rounded-3xl"
+      />
+      <div className="flex flex-col space-y-2 lg:mt-0 mt-10">
         <h2>Game 1# : Hunter Punks Survival Game</h2>
         <p className="text-[12px]">
           Be the last survivor and earn all of the entry fees.
@@ -113,7 +117,7 @@ function Filters(props) {
     <div className="flex flex-row ml-0 mr-auto mt-10">
       {names.map((name) => (
         <div
-          className="bg-[#02040A77]  px-5 py-2 cursor-pointer duration-300"
+          className="bg-[#02040A77] px-5 py-2 cursor-pointer duration-300"
           key={name}
           style={{
             border: selected === name ? "2px solid #4FCDF2" : "none",
@@ -129,7 +133,7 @@ function Filters(props) {
         </div>
       ))}
       <div
-        className="relative bg-[#02040A77] ml-64 px-5 py-2 cursor-pointer duration-300"
+        className="hidden md:block relative bg-[#02040A77] ml-64 px-5 py-2 cursor-pointer duration-300"
         onMouseEnter={() => setTimeout(() => setLeaderboardHover(true), 200)}
         onMouseLeave={() => setTimeout(() => setLeaderboardHover(false), 200)}
         style={{
@@ -169,7 +173,6 @@ function GameCard(props) {
     has_nf,
     participant,
     winner,
-    showModal,
     setShowModal,
   } = props;
 
@@ -177,8 +180,8 @@ function GameCard(props) {
 
   return (
     <div className="flex flex-row justify-between items-center border-2 border-[#246CBD] bg-[#000000] rounded-md pr-4">
-      <img src={image} alt={title} className="min-w-[3rem] h-[5rem]" />
-      <div className="relative flex flex-col space-y-2 w-[12rem]">
+      <img src={image} alt={title} className="w-[5rem] aspect-square" />
+      <div className="relative flex flex-col space-y-2 md:w-[12rem]">
         <h2>{title}</h2>
         <p className="text-[12px]">{description}</p>
         <p className="text-[12px]">by {creator}</p>
@@ -191,25 +194,24 @@ function GameCard(props) {
           <span className="absolute -top-16 left-0 text-[12px]">Capacity</span>
         )} */}
       </div>
-      <span className="w-[5rem] relative text-[12px] text-right">
-        {" "}
-        {fee} ETH{" "}
+      <span className="hidden md:block w-[5rem] relative text-[12px] text-right">
+        {fee} ETH
       </span>
-      <span className="w-[5rem] relative text-[12px] text-right">
+      <span className="hidden md:block w-[5rem] relative text-[12px] text-right">
         {reward} ETH
       </span>
-      <span className="w-[8rem] text-[12px] text-right">
+      <span className="hidden md:block w-[8rem] text-[12px] text-right">
         {parseTimestamp(time)}
       </span>
       {wallet_status === "connected" && (
         <>
           {has_nf && status === "Upcoming" && (
-            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+            <button className="text-[14px] hidden sm:block md:w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
               Register {fee} ETH
             </button>
           )}
           {!has_nf && status === "Upcoming" && (
-            <button className="text-[14px] w-[15rem] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
+            <button className="text-[14px] hidden sm:block md:w-[15rem] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
               You Need To Buy This NFT
             </button>
           )}
@@ -217,25 +219,25 @@ function GameCard(props) {
           {status === "Ongoing" && participant && (
             <Link
               to="/hunterpunks"
-              className="text-[14px] text-center w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300"
+              className="text-[14px] text-center hidden sm:block md:w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300"
             >
               Continue To Play
             </Link>
           )}
           {status === "Ongoing" && !participant && (
-            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+            <button className="text-[14px] hidden sm:block md:w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
               Observe
             </button>
           )}
 
           {status === "Past" && winner && (
-            <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+            <button className="text-[14px] hidden sm:block md:w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
               Claim Your Reward
             </button>
           )}
 
           {status === "Past" && !winner && (
-            <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+            <button className="text-[14px] hidden sm:block md:w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
               See Winners
             </button>
           )}
@@ -243,7 +245,7 @@ function GameCard(props) {
       )}
       {wallet_status !== "connected" && (
         <button
-          className="text-[14px] w-[15rem] text-white border border-[#A2DAFF] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
+          className="text-[14px] hidden sm:block md:w-[15rem] text-white border border-[#A2DAFF] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
           style={{ boxShadow: "0px 0px 14px 4px rgba(169,207,255, 0.638822)" }}
           onClick={() => setShowModal(true)}
         >
@@ -287,7 +289,7 @@ function GameList(props) {
 
   return (
     <div className="w-[100vw] bg-[#02040A77] border border-[#4FCDF2] shadow-border_2 py-2">
-      <div className="w-dojo mx-auto pt-4 pb-20 space-y-4">
+      <div className="lg:w-dojo mx-auto pt-4 pb-20 space-y-4 px-4">
         <ToggleSwitch
           leftLabel={
             selected === "Upcoming Games"
@@ -297,7 +299,7 @@ function GameList(props) {
           rightLabel={"All "}
           onToggle={(newState) => setChecked(newState)}
         />
-        <div className="flex flex-row space-x-2 items-center justify-start">
+        <div className="hidden md:flex flex-row space-x-2 items-center justify-start">
           <RoomType type={"Ducks Everywhere"} count={5} value={true} />
           <RoomType type={"Pixel Heroes"} count={2} value={true} />
           <RoomType type={"Stark Guardians"} count={5} value={false} />
