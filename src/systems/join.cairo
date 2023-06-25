@@ -20,8 +20,6 @@ mod JoinGame {
         assert(game.max_players > game.num_players, 'game is full');
         assert(game.start_time >= block_info.block_timestamp, 'already started');
 
-
-        // spawn player into game
         commands::set_entity(
             (game_id, player_id).into(),
             (
@@ -30,8 +28,6 @@ mod JoinGame {
                     },
             )
         );
-
-        // update num players joined
         commands::set_entity(
             game_sk,
             (Game {
