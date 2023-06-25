@@ -42,3 +42,13 @@ sozo component schema Game
 torii --world-address 0x7f1d6c1b15e03673062d8356dc1174d5d85c310479ec49fe781e8bf89e4c4f8 --manifest path_to_target/manifest.json
 
 ```
+Sozo will eventually contain all commands required to interact with your world. However, CLIs like [starknet-probe](https://github.com/kariy/starknet-probe) or [starkli](https://github.com/xJonathanLEI/starkli) can also be used to interact directly with Katana. Due to JSON-RPC spec differences starknetpy may have issues.
+
+
+
+#### Future improvements
+
+- VRF system will be added for randomness
+- Games will be created for only NFT collections
+- More complex data structures
+- Damage system will be updated
