@@ -1,14 +1,13 @@
 
 #[derive(Component, Copy, Drop, Serde)]
 struct Stats {
-    health: u8,
+    health: u16,
     turns_remaining: usize,
 }
 
 trait StatsTrait {
     fn can_continue(self: @Stats) -> bool;
 }
-
 impl StatsImpl of StatsTrait {
     fn can_continue(self: @Stats) -> bool {
         if *self.health == 0 {
@@ -17,7 +16,6 @@ impl StatsImpl of StatsTrait {
         if *self.turns_remaining == 0 {
             return false;
         }
-
         true
     }
 }

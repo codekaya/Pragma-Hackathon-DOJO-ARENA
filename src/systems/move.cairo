@@ -20,7 +20,7 @@ mod Attack {
 
     #[event]
     fn PlayerAttacked(
-        game_id: u32, player_id: felt252, opponent_id: felt252, action: Action, damage: u8, 
+        game_id: u32, player_id: felt252, opponent_id: felt252, action: Action, damage: u16, 
     ) {}
 
     #[event]
@@ -103,7 +103,7 @@ mod Attack {
         }
     }
 //--------------------------------
-    fn calculate_damage(seed: felt252, action: Action) -> u8 {
+    fn calculate_damage(seed: felt252, action: Action) -> u16 {
         match action {
             Action::Attack(()) => chance_hit(seed, ATTACK_CHANCE, ATTACK_DAMAGE),
             Action::Hide(()) => chance_hit(seed, HIDE_HEAL_CHANCE, HIDE_POINT),
@@ -111,15 +111,15 @@ mod Attack {
         }
     }
 
-    fn chance_hit(seed: felt252, likelihood: u8, damage: u8) -> u8 {
+    fn chance_hit(seed: felt252, likelihood: u16, damage: u16) -> u16 {
         let seed: u256 = seed.into();
         let result: u128 = seed.low % 100;
 
         if result <= likelihood.into() {
             damage
         } else {
-            damage = damage * -1
-            damage
+            
+            0
         }
     }
 }
