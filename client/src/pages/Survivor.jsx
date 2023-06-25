@@ -3,26 +3,25 @@ import CivilRights from "/civil-rights.png";
 import Strategy from "/random.png";
 import SilverPot from "/silver-pot.png";
 import Web3 from "/web-3.png";
-import DojoArena from "/dojo_arena.png";
+import Lobby from "/lobby.png";
 
 function Intro() {
   return (
     <div className="flex flex-row items-center space-x-10 px-10 mt-10">
-      <div className="bg-[#D8D8D8] min-w-[300px] min-h-[300px] " />
+      <img src={Lobby} alt="Lobby" className="w-[20rem] h-[20rem]" />
       <span>
         <p className="text-[18px] font-bold">
-          Join a Survivor Game with your{" "}
-          <span className="text-[#FF356D]">Starknet NFT community.</span> Be the
-          last survivor and take all entry fees.
+          Join a Survivor Game with your Starknet NFT community. Be the last
+          survivor and take all entry fees.
         </p>
         <br />
-        <p className="font-light text-[14px]">
+        <p className="text-[18px] font-bold">
           To survive you need to increase your health with hunting, you can
           attack opponents and you can hide from attacks
         </p>
         <br />
-        <p className="font-light text-[14px]">
-          Dojo Arena is a on-chain survival boardgame built on Dojo.
+        <p className="text-[18px] font-bold">
+          Arena Survivors is a on-chain survival boardgame built on Dojo.
         </p>
       </span>
     </div>
@@ -33,11 +32,20 @@ function JoinAndRegister() {
   return (
     <div className="flex flex-row items-center space-x-10 mt-16 w-full px-20">
       <button className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1">
-        <span>Join A Room!</span>
+        <span>Play The Game!</span>
       </button>
-      <button className="bg-[#02040A] px-4 py-4 border-2 border-[#4FCDF2] rounded-md w-full">
-        <span>Register Your NFT Collection</span>
-      </button>
+    </div>
+  );
+}
+
+function Highlight({ image, title, description }) {
+  return (
+    <div className="flex flex-col space-y-2 justify-start py-2 px-2">
+      <div className="bg-black px-12 py-4">
+        <img src={image} alt="logo" className="w-20 h-20 mx-auto" />
+      </div>
+      <h3 className="text-[15px] font-bold">{title}</h3>
+      <p className="text-[11px] font-normal">{description}</p>
     </div>
   );
 }
@@ -47,45 +55,26 @@ function Highlights() {
     <div className="flex flex-col text-center mt-10">
       <h2 className="text-[24px]">Highlights</h2>
       <div className="grid grid-cols-4 justify-items-center mx-auto gap-5 mt-12">
-        <div className="flex flex-col space-y-2 justify-start py-2 px-2">
-          <div className="bg-black border border-[#4FCDF2] px-12 py-4">
-            <img src={CivilRights} alt="logo" className="w-20 h-20" />
-          </div>
-          <h3 className="text-[15px] font-bold">No Token Advantage</h3>
-          <p className="text-[11px] font-normal">
-            Game tokens are destined to be dumped. So, in Dojo Arena there is
-            only ETH / DAI token in gameplay.
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 justify-start py-2 px-2">
-          <div className="bg-black border border-[#4FCDF2] px-12 py-4">
-            <img src={SilverPot} alt="logo" className="w-20 h-20" />
-          </div>
-          <h3 className="text-[15px] font-bold">Winners Win ETH</h3>
-          <p className="text-[11px] font-normal">
-            In Dojo Arena you do not earn in-game token. You directly rewarded
-            with $Eth. If you create a room you earn 1% total reward.
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 justify-start py-2 px-2">
-          <div className="bg-black border border-[#4FCDF2] px-12 py-4">
-            <img src={Strategy} alt="logo" className="w-20 h-20" />
-          </div>
-          <h3 className="text-[15px] font-bold">Chance & Strategy</h3>
-          <p className="text-[11px] font-normal">
-            Rely on your chance & strategy not your tokens.
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 justify-start py-2 px-2">
-          <div className="bg-black border border-[#4FCDF2] px-12 py-4">
-            <img src={Web3} alt="logo" className="w-20 h-20" />
-          </div>
-          <h3 className="text-[15px] font-bold">For NFT Communities</h3>
-          <p className="text-[11px] font-normal">
-            Your Starknet NFT is more valuable now! Join a survivor game with
-            your NFT community.
-          </p>
-        </div>
+        <Highlight
+          image={CivilRights}
+          title="No Token Advantage"
+          description="Game tokens are destined to be dumped. So, in Dojo Arena there is only ETH / DAI token in gameplay."
+        />
+        <Highlight
+          image={SilverPot}
+          title="Winners Win ETH"
+          description="In Dojo Arena you do not earn in-game token. You directly rewarded with $Eth. If you create a room you earn 1% total reward."
+        />
+        <Highlight
+          image={Strategy}
+          title="Chance & Strategy"
+          description="Rely on your chance & strategy not your tokens."
+        />
+        <Highlight
+          image={Web3}
+          title="For NFT Communities"
+          description="Your Starknet NFT is more valuable now! Join a survivor game with your NFT community."
+        />
       </div>
     </div>
   );
@@ -94,7 +83,11 @@ function Highlights() {
 function ToJoin() {
   return (
     <div className="flex flex-col text-center mt-20 space-y-4">
-      <h2 className="text-[24px]">To Join A Game</h2>
+      <h1 className="text-[24px] font-bold">
+        More About Game#1 : Survival Game
+      </h1>
+
+      <h2 className="text-[24px] font-bold">To Join A Game</h2>
       <div className="grid grid-cols-2 justify-items-center px-10 mx-auto gap-5">
         <div className="flex flex-col spcae-y-1 border-2 border-black justify-start py-2 px-2 border-2 border-white shadow-border_1 rounded-lg ">
           <h3 className="text-[16px] font-bold">Join a Room</h3>
@@ -116,43 +109,53 @@ function ToJoin() {
   );
 }
 
+function SurvivorCard({ image, title, subtitle, description }) {
+  return (
+    <div className="flex flex-col space-y-2 border-2 border-white shadow-border_1 text-center justify-start py-4 px-4">
+      <img src={image} alt="logo" className="w-full mx-auto" />
+      <h3 className="text-[16px]">{title}</h3>
+      <h4 className="text-[13px]">{subtitle}</h4>
+      <p className="text-[12px]">{description}</p>
+    </div>
+  );
+}
+
 function ToSurvive() {
   return (
     <div className="flex flex-col text-center mt-16">
       <h2 className="text-[24px]">To Survive</h2>
-      <p className="mt-2 text-[12px] w-2/3 mx-auto">
+      <p className="mt-2 text-[12px] px-20 mx-auto">
         In default game, each player is equal and starts with 2400 HP. Each
         epoch longs 6 hours and after the epoch ends you lose -600 health. Each
         epoch, you can do one of them.
       </p>
       <div className="grid grid-cols-3 justify-items-center mx-auto gap-5 mt-16">
-        <div className="flex flex-col space-y-2 border-2 border-white shadow-border_1 text-center justify-start py-2 px-2">
-          <div className="bg-[#D8D8D8] min-w-[100px] min-h-[100px] aspect-square" />
-          <h3 className="text-[16px]">Hunting</h3>
-          <h4 className="text-[13px]">Increase Your Health</h4>
-          <p className="text-[12px]">
-            Your champion can hunt for increase your health. However, you can
-            kill yourself in hunting.
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 border-2 border-white shadow-border_1 text-center justify-start py-2 px-2">
-          <div className="bg-[#D8D8D8] min-w-[100px] min-h-[100px] aspect-square" />
-          <h3 className="text-[16px]">ATTACKING</h3>
-          <h4 className="text-[13px]">Kill Other Champions</h4>
-          <p className="text-[12px]">
-            You can decrease the health of another champion when you attack.
-            Also, you can kill yourself when you attacking.
-          </p>
-        </div>
-        <div className="flex flex-col space-y-2 border-2 border-white shadow-border_1 text-center justify-start py-2 px-2">
-          <div className="bg-[#D8D8D8] min-w-[100px] min-h-[100px] aspect-square" />
-          <h3 className="text-[16px]">HIDING</h3>
-          <h4 className="text-[13px]">Be Untouchable For Next Turn</h4>
-          <p className="text-[12px]">
-            Hide is absolute movement and enables for next turn. (still be
-            effected by starving)
-          </p>
-        </div>
+        <SurvivorCard
+          image={Lobby}
+          title="HUNTING"
+          subtitle="Increase Your Health"
+          description={
+            "Your champion can hunt for increase your health. However, you can kill yourself in hunting."
+          }
+        />
+
+        <SurvivorCard
+          image={Lobby}
+          title="ATTACKING"
+          subtitle="Kill Other Champions"
+          description={
+            "You can decrease the health of another champion when you attack. Also, you can kill yourself when you attacking."
+          }
+        />
+
+        <SurvivorCard
+          image={Lobby}
+          title="HIDING"
+          subtitle="Be Untouchable For Next Turn"
+          description={
+            "Hide is absolute movement and enables for next turn. (still be effected by starving)"
+          }
+        />
       </div>
     </div>
   );
@@ -172,7 +175,7 @@ function ToWin() {
 
 function Rules() {
   return (
-    <div className="flex flex-col text-center mt-20">
+    <div className="flex flex-col text-center mt-10 py-10">
       <h2 className="text-[24px]">Rules: </h2>
       <ul className="text-[17px]">
         <li>Each turn you have a one move to play.</li>
@@ -229,14 +232,9 @@ function Rules() {
   );
 }
 
-export default function Main() {
+export default function Survivor() {
   return (
-    <Layout>
-      <img
-        src={DojoArena}
-        alt="dojo arena"
-        className="w-1/3 ml-0 mr-auto pl-10"
-      />
+    <Layout bg="#000000">
       <Intro />
       <JoinAndRegister />
       <Highlights />

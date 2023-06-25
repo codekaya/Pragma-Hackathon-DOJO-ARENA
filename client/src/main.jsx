@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./output.css";
-import Main from "./pages/Main";
+import Menu from "./pages/Menu";
+import Survivor from "./pages/Survivor";
 import Start from "./pages/Start";
 import Game from "./pages/Game";
 import Games from "./pages/Games";
@@ -11,7 +12,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Menu />} />
+        <Route path="/survivor" element={<Survivor />} />
         <Route path="/start" element={<Start />} />
         <Route path="/game" element={<Game />} />
         <Route path="/games" element={<Games />} />

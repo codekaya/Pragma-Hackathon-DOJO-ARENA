@@ -4,10 +4,10 @@ module.exports = {
   theme: {
     extend: {},
     width: {
-      dojo: "1000px",
+      dojo: "1100px",
     },
     maxWidth: {
-      dojo: "1000px",
+      dojo: "1100px",
     },
     boxShadow: {
       button_1: "0px 0px 14px 4px rgba(0,67,152, 0.638822)",

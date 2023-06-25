@@ -131,10 +131,11 @@ export default function Start() {
   const handleShowModal = () => setShowModal(true);
 
   return (
-    <Layout>
+    <Layout hasNavbar={false}>
       {showModal && <Modal setShowModal={setShowModal} />}
       <div className="flex flex-col w-dojo px-20">
-        <h1 className="text-[58px]">Start A Room</h1>
+        <h1 className="text-[32px]">Start A Room For</h1>
+        <h1 className="text-[32px] text-[#FF356D]">Arena Survivors</h1>
         <div className="grid grid-cols-2 grid-rows-4 gap-5 items-stretch">
           {inputs}
         </div>
