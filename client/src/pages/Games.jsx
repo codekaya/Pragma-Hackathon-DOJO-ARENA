@@ -52,14 +52,14 @@ const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
         className="hidden appearance-none transition-colors cursor-pointer w-[14px] h-[10px] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-blue-500 bg-red-500"
       />
       <span
-        className={`w-[8rem] h-6 my-auto rounded-full transform transition-transform bg-[#1E3249] border border-white ${
+        className={`w-[8rem] h-8 my-auto rounded-full transform transition-transform bg-[#1E3249] border border-white ${
           isChecked ? "translate-x-[8rem]" : ""
         }`}
       />
       <span className="absolute font-medium text-xs left-3 top-[6px] text-white">
         {leftLabel}
       </span>
-      <span className="absolute font-medium text-xs right-10 top-[6px] text-white">
+      <span className="absolute font-medium text-xs right-12 top-[6px] text-white">
         {rightLabel}
       </span>
     </label>
@@ -101,10 +101,14 @@ function Filters(props) {
     <div className="flex flex-row ml-0 mr-auto mt-10">
       {names.map((name) => (
         <div
-          className="bg-[#02040A77] border-[#4FCDF2] shadow-border_2 px-5 py-2 cursor-pointer"
+          className="bg-[#02040A77]  px-5 py-2 cursor-pointer duration-300"
           key={name}
           style={{
             border: selected === name ? "2px solid #4FCDF2" : "none",
+            boxShadow:
+              selected === name
+                ? "0px 0px 3px rgba(0,231,255, 0.819083)"
+                : "none",
             color: selected === name ? "#FFFFFF" : "#609CAD",
           }}
           onClick={() => setSelected(name)}
@@ -203,18 +207,53 @@ function GameCard(props) {
   );
 }
 
+function RoomType(props) {
+  const { type, count, value } = props;
+  const [selected, setSelected] = useState(() => value);
+
+  return (
+    <div
+      className="flex flex-row items-center space-x-2 cursor-pointer px-2 py-1 rounded-md"
+      style={{
+        color: selected ? "#246CBD" : "#FFFFFF",
+        backgroundColor: selected ? "#FFFFFF" : "#50818F",
+        opacity: selected ? 1 : 0.5,
+      }}
+      onClick={() => setSelected(!selected)}
+    >
+      <span>{selected}</span>
+      {/* <div
+        className="w-[1rem] h-[1rem] rounded-full border border-[#4FCDF2]"
+        style={{
+          backgroundColor: selected ? "#4FCDF2" : "#02040A",
+        }}
+      /> */}
+      <h2 className="text-[12px]">{type}</h2>
+      <h2 className="text-[12px]">({count})</h2>
+    </div>
+  );
+}
+
 function GameList(props) {
   const { selected } = props;
   const [checked, setChecked] = useState(false);
 
   return (
     <div className="w-[100vw] bg-[#02040A77] border border-[#4FCDF2] shadow-border_2 py-2">
-      <div className="w-dojo mx-auto py-20 space-y-4">
+      <div className="w-dojo mx-auto pt-4 pb-20 space-y-4">
         <ToggleSwitch
           leftLabel={"Briq Collections"}
           rightLabel={"All "}
           onToggle={(newState) => setChecked(newState)}
         />
+        <div className="flex flex-row space-x-2 items-center justify-start">
+          <RoomType type={"Ducks Everywhere"} count={5} value={true} />
+          <RoomType type={"Pixel Heroes"} count={2} value={true} />
+          <RoomType type={"Stark Guardians"} count={5} value={false} />
+          <RoomType type={"Stark Punks"} count={5} value={false} />
+          <RoomType type={"Early Starkers"} count={3} value={false} />
+        </div>
+
         {games_data
           .filter((game) => game.status + " Games" === selected)
           .filter((game) => (checked ? game.isBriq : true))
