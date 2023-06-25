@@ -1822,6 +1822,11 @@ video {
   background-color: rgb(192 227 255 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-\[\#4FCDF2\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 205 242 / var(--tw-bg-opacity));
+}
+
 .hover\:text-\[\#2D3D89\]:hover {
   --tw-text-opacity: 1;
   color: rgb(45 61 137 / var(--tw-text-opacity));
@@ -1830,6 +1835,11 @@ video {
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .hover\:shadow-button_2:hover {

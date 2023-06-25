@@ -37,7 +37,7 @@ function JoinAndRegister() {
     <div className="flex flex-row items-center space-x-10 mt-16 w-full px-20">
       <Link
         to="/games"
-        className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1"
+        className="text-[14px] w-[15rem] text-center bg-[#3072A7] text-white border border-[#628EAB] font-bold py-4 px-4 rounded-md hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300"
       >
         <span>Play The Game!</span>
       </Link>
