@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import Lobby from "/lobby.png";
+import { Link } from "react-router-dom";
 
 function Intro() {
   return (
@@ -24,13 +25,16 @@ function Intro() {
   );
 }
 
-function GameCard({ name, description, image }) {
+function GameCard({ name, description, image, link }) {
   return (
-    <div className="flex flex-col justify-center items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[20rem] rounded-md">
+    <Link
+      to={link}
+      className="flex flex-col justify-center items-center bg-[#02040A] border border-[#4FCDF2] p-4 w-[15rem] h-[20rem] rounded-md"
+    >
       <img src={image} alt="Game" className="w-[10rem] h-[10rem]" />
       <h1 className="text-[15px] font-bold mt-5">{name}</h1>
       <h1 className="text-[11px] text-center">{description}</h1>
-    </div>
+    </Link>
   );
 }
 
@@ -56,16 +60,19 @@ function Catalog() {
             <GameCard
               name="Arena Survivors"
               description="Be the last survivor. Earn all of the entry fees."
+              link="/survivor"
               image={Lobby}
             />
             <GameCard
               name="1v1 Duel"
               description="If you lost, you lost your NFT"
+              link="/duel"
               image={Lobby}
             />
             <GameCard
               name="List Your Game"
               description="Reach us with our form"
+              link="/list"
               image={Lobby}
             />
           </div>

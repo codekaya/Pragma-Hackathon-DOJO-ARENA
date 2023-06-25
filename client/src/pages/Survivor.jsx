@@ -4,6 +4,7 @@ import Strategy from "/random.png";
 import SilverPot from "/silver-pot.png";
 import Web3 from "/web-3.png";
 import Lobby from "/lobby.png";
+import { Link } from "react-router-dom";
 
 function Intro() {
   return (
@@ -31,9 +32,12 @@ function Intro() {
 function JoinAndRegister() {
   return (
     <div className="flex flex-row items-center space-x-10 mt-16 w-full px-20">
-      <button className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1">
+      <Link
+        to="/games"
+        className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1"
+      >
         <span>Play The Game!</span>
-      </button>
+      </Link>
     </div>
   );
 }

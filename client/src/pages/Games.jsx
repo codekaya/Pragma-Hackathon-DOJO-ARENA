@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
+import games_data from "../assets/games.json";
 
 const randomCharacter = () => {
   let index = Math.floor(Math.random() * 69 + 1);
@@ -29,6 +30,40 @@ const parseTimestamp = (timestamp) => {
   }
 
   return result.trim();
+};
+
+const ToggleSwitch = ({ leftLabel, rightLabel, onToggle }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleToggle = () => {
+    const newState = !isChecked;
+    setIsChecked(newState);
+    if (onToggle) {
+      onToggle(newState);
+    }
+  };
+
+  return (
+    <label className="relative w-[16rem] h-8 flex flex-row cursor-pointer select-none bg-[#02040A] border border-[#00CCFF] rounded-full">
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={handleToggle}
+        className="hidden appearance-none transition-colors cursor-pointer w-[14px] h-[10px] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-blue-500 bg-red-500"
+      />
+      <span
+        className={`w-[8rem] h-6 my-auto rounded-full transform transition-transform bg-[#1E3249] border border-white ${
+          isChecked ? "translate-x-[8rem]" : ""
+        }`}
+      />
+      <span className="absolute font-medium text-xs left-3 top-[6px] text-white">
+        {leftLabel}
+      </span>
+      <span className="absolute font-medium text-xs right-10 top-[6px] text-white">
+        {rightLabel}
+      </span>
+    </label>
+  );
 };
 
 function Intro() {
@@ -99,10 +134,16 @@ function GameCard(props) {
     first,
   } = props;
 
+  console.log(status);
+
   return (
-    <div className="flex flex-row justify-between items-center space-x-10 border-2 border-[#246CBD] rounded-md pr-4">
-      <img src={image} alt={title} className="w-[3rem] h-[3rem]" />
-      <div className="relative flex flex-col space-y-2">
+    <div className="flex flex-row justify-between items-center border-2 border-[#246CBD] rounded-md pr-4">
+      <img
+        src={image}
+        alt={title}
+        className="min-w-[3rem] max-w-[3rem] h-[3rem]"
+      />
+      <div className="relative flex flex-col space-y-2 w-[12rem]">
         <h2>{title}</h2>
         <p className="text-[12px]">{description}</p>
         <p className="text-[12px]">by {creator}</p>
@@ -115,39 +156,46 @@ function GameCard(props) {
           <span className="absolute -top-16 left-0 text-[12px]">Capacity</span>
         )} */}
       </div>
-      <span className="relative text-[12px]"> {fee} ETH </span>
-      <span className="relative text-[12px]"> {reward} ETH </span>
-      <span className="text-[12px]"> {parseTimestamp(time)} </span>
+      <span className="w-[5rem] relative text-[12px] text-right">
+        {" "}
+        {fee} ETH{" "}
+      </span>
+      <span className="w-[5rem] relative text-[12px] text-right">
+        {reward} ETH
+      </span>
+      <span className="w-[8rem] text-[12px] text-right">
+        {parseTimestamp(time)}
+      </span>
       {has_nf && status === "Upcoming" && (
-        <button className="text-[14px] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
-          Register ${fee} ETH
+        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+          Register {fee} ETH
         </button>
       )}
       {!has_nf && status === "Upcoming" && (
-        <button className="text-[14px] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
+        <button className="text-[14px] w-[15rem] bg-[#2B1753] text-white border-2 border-[#E74A98] font-bold py-2 px-4 rounded-full hover:shadow-button_2 duration-300">
           You Need To Buy This NFT
         </button>
       )}
 
-      {has_nf && status === "Ongoing" && participant && (
-        <button className="text-[14px] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+      {status === "Ongoing" && participant && (
+        <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
           Continue To Play
         </button>
       )}
-      {has_nf && status === "Ongoing" && !participant && (
-        <button className="text-[14px] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+      {status === "Ongoing" && !participant && (
+        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
           Observe
         </button>
       )}
 
-      {has_nf && status === "Past" && winner && (
-        <button className="text-[14px] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
+      {status === "Past" && winner && (
+        <button className="text-[14px] w-[15rem] bg-[#17532C] border border-[#4AE7A7] shadow-border_1 text-white font-bold py-2 px-4 rounded-full hover:bg-[#40F880] hover:border-white hover:text-white hover:shadow-button_2 active:bg-[#225E37] active:border-[#4AE7A7] active:text-[#63F275] duration-300">
           Claim Your Reward
         </button>
       )}
 
-      {has_nf && status === "Past" && !winner && (
-        <button className="text-[14px] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
+      {status === "Past" && !winner && (
+        <button className="text-[14px] w-[15rem] bg-[#3072A7] text-white border border-[#628EAB] font-bold py-2 px-4 rounded-full hover:bg-[#C0E3FF] hover:text-[#2D3D89] hover:shadow-button_2 duration-300">
           See Winners
         </button>
       )}
@@ -157,133 +205,40 @@ function GameCard(props) {
 
 function GameList(props) {
   const { selected } = props;
-  const upcoming = [
-    <GameCard
-      key="1"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Upcoming"
-      has_nf={true}
-      participant={true}
-      first={true}
-    />,
-    <GameCard
-      key="2"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Upcoming"
-      has_nf={false}
-      participant={true}
-      first={true}
-    />,
-    <GameCard
-      key="3"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Upcoming"
-      has_nf={true}
-      participant={true}
-      first={true}
-    />,
-  ];
+  const [checked, setChecked] = useState(false);
 
-  const ongoing = [
-    <GameCard
-      key="1"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Ongoing"
-      has_nf={true}
-      participant={true}
-      first={true}
-    />,
-    <GameCard
-      key="2"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Ongoing"
-      has_nf={true}
-      participant={false}
-      first={true}
-    />,
-  ];
-
-  const past = [
-    <GameCard
-      key="1"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Past"
-      has_nf={true}
-      participant={true}
-      first={true}
-      winner={true}
-    />,
-    <GameCard
-      key="1"
-      image={randomCharacter()}
-      title="Ducks Everywhere"
-      description="Ducks Here"
-      creator="napstart.stark"
-      player={800}
-      capacity={1000}
-      fee={0.02}
-      reward={16}
-      time={1000 * 55 * 35 * 21}
-      status="Past"
-      has_nf={true}
-      participant={true}
-      winner={false}
-    />,
-  ];
   return (
     <div className="w-[100vw] bg-[#02040A77] border border-[#4FCDF2] shadow-border_2 py-2">
       <div className="w-dojo mx-auto py-20 space-y-4">
-        {selected === "Upcoming Games" && upcoming}
-        {selected === "Ongoing Games" && ongoing}
-        {selected === "Past Games" && past}
+        <ToggleSwitch
+          leftLabel={"Briq Collections"}
+          rightLabel={"All "}
+          onToggle={(newState) => setChecked(newState)}
+        />
+        {games_data
+          .filter((game) => game.status + " Games" === selected)
+          .filter((game) => (checked ? game.isBriq : true))
+          .map((game) => {
+            return (
+              <GameCard
+                key={game.id}
+                image={randomCharacter()}
+                title={game.collection_name}
+                description={game.room_name}
+                creator={game.room_master}
+                player={game.player}
+                capacity={game.capacity}
+                fee={game.entry_fee}
+                reward={game.total_reward}
+                time={game.timestamp}
+                status={game.status}
+                has_nf={game.has_nft}
+                participant={game.participated}
+                winner={game.winner}
+                first={game.first}
+              />
+            );
+          })}
       </div>
     </div>
   );
