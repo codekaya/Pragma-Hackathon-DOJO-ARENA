@@ -24,10 +24,12 @@ mod Attack {
     ) {}
 
     #[event]
-    fn GameOver(game_id: u32, winner: felt252 ) {}
+    fn GameOver(game_id: u32, player_id: felt252, opponent_id: felt252 ) {}
 
     fn execute(ctx: Context, game_id: u32, action: Action, attack_to: felt252) {
-        // gets player address
+        
+        let block_info = starknet::get_block_info().unbox();
+
         let player_id: felt252 = ctx.caller_account.into();
 
         // read game entity
@@ -41,14 +43,10 @@ mod Attack {
 
         
         let player_sk: Query = (game_id, player_id).into();
-        let special = commands::<Stats>::entity(player_sk);
+        let player = commands::<Stats>::entity(player_sk);
 
-        assert(Stats.turns_remaining > 0, 'no turn remained');
+        assert(player.turns_remaining > 0, 'no turn remained');
 
-        commands::set_entity(
-            player_sk, // player storage key
-                (Stats { turns_remaining: Stats.turns_remaining - 1 })
-        );
         
 
         // calculating outcome, use VRF for seed in the future
@@ -60,8 +58,8 @@ mod Attack {
         let opponent_sk: Query = (game_id, opponent_id).into();
         let Stats = commands::<Stats>::entity(opponent_sk);
         let health = Stats.health;
-        let killing_blow = if damage >= health.amount {
-            damage = health.amount;
+        let killing_blow = if damage >= Stats.health {
+            damage = Stats.health;
             true
         } else {
             false
@@ -69,7 +67,7 @@ mod Attack {
 
         commands::set_entity(
             opponent_sk, 
-             (Stats { health: health.amount - damage })
+             (Stats { health: Stats.health - damage, turns_remaining : Stats.turns_remaining })
         );
         commands::set_entity(
             player_sk,
