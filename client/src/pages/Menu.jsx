@@ -3,10 +3,49 @@ import Lobby from "/lobby.png";
 import { Link } from "react-router-dom";
 import MenuBg from "/menu-bg.png";
 import SurvivorGame from "/survivor_game.png";
+import { useState } from "react";
+
+import { useAccount, useConnectors } from "@starknet-react/core";
+
+function WalletModal({ setShowModal, connectors, connect }) {
+  return (
+    <div className="fixed z-10 inset-0 overflow-y-auto">
+      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 transition-opacity"
+          aria-hidden="true"
+          onClick={() => setShowModal(false)}
+        />
+        <div className="flex flex-col align-bottom bg-[#02040A] rounded-lg text-left overflow-hidden shadow-xl transform transition-all my-80">
+          {connectors.map((connector) => (
+            <button
+              key={connector.options.id}
+              className="bg-[#FFFFFF] text-black font-bold py-2 px-4 rounded-full w-[200px] mx-auto my-5"
+              onClick={() => connect(connector)}
+            >
+              {connector.options.id}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Intro() {
+  const { status } = useAccount();
+  const { connectors, connect } = useConnectors();
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="flex flex-row justify-center items-center space-x-10">
+      {showModal && status !== "connected" && (
+        <WalletModal
+          setShowModal={setShowModal}
+          connectors={connectors}
+          connect={connect}
+        />
+      )}
       <img src={Lobby} alt="Lobby" className="w-[20rem] h-[20rem]" />
       <div className="flex flex-col justify-center items-center">
         <h1 className="text-[18px] font-bold">
@@ -15,7 +54,10 @@ function Intro() {
           <span className="text-[#FF356D]">your Starknet NFTs.</span>
         </h1>
         <div className="flex flex-row items-center space-x-10 mt-16 w-full">
-          <button className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1">
+          <button
+            className="bg-[#386A92] px-4 py-4 border-2 border-[#628EAB] rounded-md w-full shadow-button_1"
+            onClick={() => setShowModal(true)}
+          >
             <span>Connect Your Wallet</span>
           </button>
           <button className="bg-[#02040A] px-4 py-4 border-2 border-[#4FCDF2] rounded-md w-full">

@@ -5,12 +5,6 @@ import { useAccount } from "@starknet-react/core";
 import { Link } from "react-router-dom";
 import SurvivorGame from "/survivor_game.png";
 
-const randomCharacter = () => {
-  let index = Math.floor(Math.random() * 69 + 1);
-  let path = "/characters/" + index + ".svg";
-  return path;
-};
-
 const parseTimestamp = (timestamp) => {
   let seconds = Math.floor(timestamp / 1000) % 60;
   let minutes = Math.floor(timestamp / (1000 * 60)) % 60;
@@ -287,7 +281,13 @@ function GameList(props) {
 
         {games_data
           .filter((game) => game.status + " Games" === selected)
-          .filter((game) => (checked ? game.isBriq : true))
+          .filter((game) =>
+            checked
+              ? game.status === "Upcoming"
+                ? game.isBriq
+                : game.participated
+              : true
+          )
           .map((game) => {
             return (
               <GameCard
