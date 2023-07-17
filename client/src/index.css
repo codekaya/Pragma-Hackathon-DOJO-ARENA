@@ -1,0 +1,354 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .main-bg-img {
+    object-fit: cover;
+    object-position: center top right;
+  }
+
+  .main-bg-after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, rgba(10, 64, 106, 1) 0%, rgba(6, 33, 53, 1) 100%);
+    opacity: 0.91;
+  }
+
+  .cardBgStyledIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #246cbd;
+    opacity: 1;
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: -1;
+    box-shadow: 0 12px 23px 10px #163048;
+    background: #2e5577;
+  }
+
+  .cardBgStyledEmpty {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #246cbd;
+    background: #02040a;
+    opacity: 0.6;
+    border-radius: 6px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .cardBgStyledCharacterpopup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: #02040a;
+    border: 2px solid #4d8798;
+    border-radius: 0;
+  }
+
+  .edit-icon {
+    transition: opacity 0.3s ease-out;
+  }
+
+  .edit-icon path {
+    transition: fill 0.3s ease-out;
+  }
+
+  .edit-icon:active path {
+    fill: #fff;
+  }
+
+  .player-character-icon img {
+    object-fit: contain;
+  }
+
+  .name-input {
+    background: none;
+    outline: none;
+  }
+
+  .name-input-disabled {
+    background: #224e81;
+    border: 2px solid #7ab2ff;
+    box-shadow: 0px 0px 7px 2px rgba(0, 118, 152, 0.367952);
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 406px;
+    position: relative;
+    background: url('/public/game-area-bg.png');
+    background-repeat: repeat;
+  }
+
+  .tooltip-position-y-center {
+    --transformYValue: -50%;
+  }
+
+  .tooltip-position-x-right {
+    right: 24px;
+    --transformXValue: 100%;
+  }
+
+  .tooltip-position-x-not-right {
+    left: 24px;
+    --transformXValue: -100%;
+  }
+
+  .button-hunter {
+    position: relative;
+    width: 100%;
+    height: 56px;
+    background: #386a92;
+    border: 2px solid #628eab;
+    box-shadow: 0px 0px 14px 4px rgba(0, 67, 152, 0.638822);
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    text-shadow: 0px 2px 4px #173f6b;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.45s ease, border-color 0.32s ease, border 0.32s ease,
+      box-shadow 0.4s ease;
+  }
+  .button-hunter:hover {
+    background: #5691d6;
+    border-color: #7ae9ff;
+    box-shadow: 0px 0px 14px 4px rgba(0, 24, 152, 0.638822);
+  }
+  .button-hunter-active {
+    background: #c0e3ff;
+    border-color: #a2daff;
+  }
+}
+
+@layer components {
+  .info-title {
+    @apply text-xs font-normal text-[rgba(132,136,150,0.85)];
+  }
+
+  .info-value {
+    @apply font-normal text-[15px] text-[rgba(255,255,255,0.85)];
+  }
+
+  .game-area-section-group {
+    @apply relative h-3/6 flex;
+  }
+  .game-area-section-group:nth-child(1):after {
+    @apply content-[""] absolute w-[calc(100%_-_2px)] h-px left-px bottom-0;
+    background: #53d8ff;
+  }
+  .game-area-section-group:nth-child(2) {
+    @apply pb-0.5;
+  }
+
+  .game-area-content {
+    @apply relative w-full h-full text-[0] before:content-[""] before:absolute before:-translate-x-2/4 before:h-[calc(100%_-_44px)] before:w-px before:left-2/4 before:bottom-[18px];
+  }
+  .game-area-content:before {
+    background: #53d8ff;
+  }
+
+  .game-area-section {
+    @apply flex flex-col w-1/2 h-full;
+  }
+
+  .game-area-section-title {
+    @apply text-[15px] text-white text-opacity-[85] text-center pt-[15px] pb-1;
+  }
+
+  .game-area-section-players {
+    @apply px-[15px] pb-5 pt-[7px] flex flex-wrap gap-[10px] overflow-auto;
+  }
+
+  .chracterStyled {
+    @apply relative flex items-center flex-col gap-[3.5px] w-[27px] cursor-pointer select-none;
+  }
+  .chracterStyled img {
+    @apply object-contain object-center pointer-events-none;
+  }
+
+  .hp-bar-high {
+    @apply border shadow-[0px_0px_4px_rgba(11,255,178,0.5),inset_0px_1px_3px_rgba(44,240,255,0.5)] border-solid border-[#76ffea];
+    background: linear-gradient(180deg, #78ed8d 0%, #63f275 100%);
+  }
+
+  .hp-bar-medium {
+    @apply border shadow-[0px_0px_4px_rgba(255,78,11,0.5),inset_0px_1px_3px_rgba(235,255,44,0.5)] border-solid border-[#ffe028];
+    background: linear-gradient(180deg, #ffcd00 0%, #ccaa7d 99.45%);
+  }
+
+  .hp-bar-low {
+    @apply border shadow-[0px_0px_4px_rgba(255,78,11,0.5),inset_0px_1px_3px_rgba(235,255,44,0.5)] border-solid border-[#ffe028];
+    background: linear-gradient(180deg, #ffcd00 0%, #ccaa7d 99.45%);
+  }
+
+  .tooltip-container {
+    @apply w-60 z-[100] absolute transition-opacity duration-[0.3s] ease-[ease-in] delay-100 pointer-events-none opacity-0 pl-4 pr-[25px] pt-3.5 pb-5 hover:opacity-100 hover:delay-[400ms];
+    --transformXValue: 0px;
+    --transformYValue: 0px;
+    transform: translate(var(--transformXValue), var(--transformYValue));
+  }
+
+  .tooltip-head {
+    @apply flex items-center mb-3 pb-1.5 border-b-[#4fcdf2] border-b border-solid;
+  }
+
+  .attack-input {
+    @apply flex-1 h-full text-white text-[13px] mr-[74px] pl-3 border-[none];
+    outline: none;
+    background: transparent;
+  }
+
+  .base-button {
+    @apply relative h-14 shadow-[0px_0px_14px_4px_rgba(0,67,152,0.638822)] text-white font-bold text-lg cursor-pointer rounded-md border-2 border-solid border-[#628eab];
+    background: #386a92;
+    text-shadow: 0px 2px 4px #173f6b;
+    outline: none;
+    transition: background 0.45s ease, border-color 0.32s ease, border 0.32s ease,
+      box-shadow 0.4s ease;
+  }
+
+  .base-button-hover {
+    @apply shadow-[0px_0px_14px_4px_rgba(0,24,152,0.638822)] border-[#7ae9ff];
+    background: #5691d6;
+  }
+  .base-button-active {
+    @apply border-[#a2daff];
+    background: #c0e3ff;
+  }
+  .base-button-mode-contact {
+    @apply shadow-none border-[#4fcdf2];
+    background: #0d1c2c;
+  }
+
+  .base-button-mode-popup {
+    @apply shadow-none border-[#4fcdf2];
+    background: #0d1c2c;
+  }
+
+  .base-button-mode-active {
+    @apply border shadow-[0px_0px_14px_4px_rgba(0,67,152,0.638822)] text-[rgba(255,255,255,0.85)] border-solid border-[#5ac4de];
+    background: #2275cf;
+    text-shadow: 0px 2px 4px rgba(12, 19, 36, 0.796738);
+  }
+
+  .base-button-mode-not-active {
+    @apply border shadow-[0px_0px_14px_4px_rgba(13,29,48,0.638822)] text-[#58abda] border-solid border-[#2c5a80];
+    background: #1c416950;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .base-button-color-black {
+    @apply border-[#bbd7e9];
+    background: #17222b;
+  }
+
+  .base-button-color-red {
+    @apply shadow-[0px_0px_14px_4px_rgba(71,28,28,0.64)] border-[#ab6262];
+    background: #ff356d;
+  }
+
+  .base-button-color-red-hover {
+    @apply shadow-[0px_0px_14px_4px_rgba(71,28,28,0.64)] border-[#ff2020];
+    background: #36000f;
+  }
+
+  .base-button-color-red-active {
+    @apply shadow-[0px_0px_14px_4px_rgba(71,28,28,0.64)];
+    background: #bd1745;
+  }
+
+  .history-content {
+    @apply w-full h-full shrink-0;
+  }
+  .history-content table {
+    @apply w-[calc(100%_-_10px)] m-auto border-collapse;
+  }
+  .history-content td {
+    @apply text-[8px] text-[#58abda] py-[5px] first:pl-2 first:rounded-tl-[3px] first:rounded-bl-[3px] last:rounded-tr-[3px] last:rounded-br-[3px];
+  }
+  .history-content td.time {
+    @apply w-10;
+  }
+  .history-content td.arrow {
+    @apply relative w-[30px] h-6 pb-[3px];
+  }
+  .history-content td.player-1 {
+    @apply text-[#4fcdf2] w-[54px];
+  }
+  .history-content td.player-2 {
+    @apply text-[#58abda] w-[54px];
+  }
+  .history-content td.hp-change-1 {
+    @apply w-[30px];
+  }
+  .history-content td.hp-change-1.green {
+    @apply text-[#63f275];
+  }
+  .history-content td.hp-change-1.red {
+    @apply text-[#ff356d];
+  }
+  .history-content td.hp-change-2 {
+    @apply text-[#4fcdf2] text-center capitalize;
+  }
+  .history-content td .player-wrapper {
+    @apply flex items-center gap-[5px];
+  }
+  .history-content td .player-wrapper img {
+    @apply object-cover h-auto;
+  }
+  .history-content td .player-wrapper.first {
+    @apply justify-end;
+  }
+  .history-content td .player-wrapper.second {
+    @apply justify-start;
+  }
+  .history-content td .player-wrapper.dead {
+    @apply text-[#ff356d];
+  }
+  .history-content td .player-wrapper.dead img {
+    @apply w-5 h-5;
+  }
+  .history-content tr:nth-child(odd) {
+    background: #0f364d;
+  }
+
+  .character-image img {
+    @apply object-contain;
+  }
+
+  .c-detail-group {
+    @apply flex justify-between mb-[7px];
+  }
+
+  .c-detail-title {
+    @apply flex items-center text-[13px] gap-2;
+  }
+  .c-detail-title svg {
+    @apply w-4 h-[18px];
+  }
+
+  .c-detail-value {
+    @apply font-semibold text-sm;
+  }
+}
