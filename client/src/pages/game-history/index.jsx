@@ -1,13 +1,11 @@
-import { RightIcon } from '@/components/icons'
-import { useAppSelector } from '@/store'
-import CardBgStyled from '@/styles/card-bg.styled'
-import Image from 'next/image'
+import { RightIcon } from '../../components/Icons'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
-import { GameHistoryStyled } from './style'
 import Button from '../../styles/button'
-
+import dead_icon from '../../../public/icons/character-dead-icon.svg'
 const GameHistory = () => {
-  const { history } = useAppSelector((state) => state.game)
+  const { history } = useSelector((state) => state.game)
+
   const [activeTab, setActiveTab] = useState('attacks')
 
   const renderAttacksHistory = (items) => {
@@ -22,6 +20,7 @@ const GameHistory = () => {
 
       return (
         <tr key={'history-attack-item_' + index} className='h-item-attack'>
+          {' '}
           <td className='time'>{item?.time}</td>
           <td className={'hp-change-1' + (p1_hp_positive ? ' green' : ' red')}>
             {(p1_hp_positive ? '+' : '') + (item?.player1_hp_change || '')}
@@ -29,7 +28,7 @@ const GameHistory = () => {
           <td className='player-1'>
             <div className='player-wrapper first'>
               {item?.player1?.character_image && (
-                <Image
+                <img
                   src={item?.player1?.character_image}
                   width={13}
                   height={17}
@@ -49,10 +48,10 @@ const GameHistory = () => {
               }
             >
               {item?.player2?.character_image && (
-                <Image
+                <img
                   src={
                     item?.player2_hp_change === 'killed'
-                      ? '/images/icons/character-dead-icon.svg'
+                      ? dead_icon
                       : item?.player2?.character_image
                   }
                   width={12.24}
@@ -80,7 +79,7 @@ const GameHistory = () => {
           <td>
             <div className='player-wrapper'>
               {item?.player?.character_image && (
-                <Image
+                <img
                   src={item?.player?.character_image}
                   width={13}
                   height={17}
@@ -108,10 +107,10 @@ const GameHistory = () => {
           <td>
             <div className={'player-wrapper ' + (item?.player_hp_change === 'dead' ? ' dead' : '')}>
               {item?.player?.character_image && (
-                <Image
+                <img
                   src={
                     item?.player_hp_change === 'dead'
-                      ? '/images/icons/character-dead-icon.svg'
+                      ? '/public/icons/character-dead-icon.svg'
                       : item?.player?.character_image
                   }
                   width={12.24}
@@ -173,3 +172,5 @@ const GameHistory = () => {
 }
 
 export default GameHistory
+
+//TODO empty css  h-item-attack

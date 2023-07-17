@@ -139,6 +139,12 @@
     background: #c0e3ff;
     border-color: #a2daff;
   }
+
+  .base-button-mode-contact {
+    background: #0d1c2c;
+    border-color: #4fcdf2;
+    box-shadow: none;
+  }
 }
 
 @layer components {
@@ -177,7 +183,7 @@
   }
 
   .game-area-section-players {
-    @apply px-[15px] pb-5 pt-[7px] flex flex-wrap gap-[10px] overflow-auto;
+    @apply px-[15px] pb-[20px] pt-[7px] flex flex-wrap gap-[10px] overflow-auto;
   }
 
   .chracterStyled {
@@ -235,15 +241,6 @@
   .base-button-active {
     @apply border-[#a2daff];
     background: #c0e3ff;
-  }
-  .base-button-mode-contact {
-    @apply shadow-none border-[#4fcdf2];
-    background: #0d1c2c;
-  }
-
-  .base-button-mode-popup {
-    @apply shadow-none border-[#4fcdf2];
-    background: #0d1c2c;
   }
 
   .base-button-mode-active {
@@ -350,5 +347,18 @@
 
   .c-detail-value {
     @apply font-semibold text-sm;
+  }
+
+  .base-button-mode-popup {
+    @apply h-[41px] text-base;
+  }
+
+  .player-hp-square {
+    @apply w-2.5 h-[13px] rounded-sm border-[0.5px] border-solid border-[#462727];
+    background: radial-gradient(100% 100% at 50% 0%, #141110 0%, #622c2c 97.4%);
+  }
+  .player-hp-square-active {
+    @apply border shadow-[0px_1px_4px_rgba(216,36,36,0.5)] border-solid border-[#dc6868];
+    background: radial-gradient(100% 100% at 50% 0%, #cc461a 0%, #b11313 100%);
   }
 }

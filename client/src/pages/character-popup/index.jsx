@@ -1,21 +1,18 @@
-import { DiscordIcon, HeartIcon, TwitterIcon } from '@/components/icons'
-import { useAppDispatch, useAppSelector } from '@/store'
-import { gameActions } from '@/store/reducers/game-slice'
-import CardBgStyled from '@/styles/card-bg.styled'
-import { getPlayerById } from '@/utils/player.util'
-import Image from 'next/image'
+import { DiscordIcon, HeartIcon, TwitterIcon } from '../../components/Icons'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCharacterPopupInfo } from '../../../stores/game-store'
+import { getPlayerById } from '../../../utils/player'
 import React, { useEffect, useMemo, useRef } from 'react'
 import InfoTooltip from '../info-tooltip'
-import { CharacterPopupStlyed } from './style'
 import Button from '../../styles/button'
 
 const CharacterPopup = () => {
-  const { character_popup: popupState, players } = useAppSelector((state) => state.game)
-  const dispatch = useAppDispatch()
+  const { character_popup: popupState, players } = useSelector((state) => state.game)
+
+  const dispatch = useDispatch()
   const popupRef = useRef(null)
   const popupOpenRef = useRef(popupState?.open)
 
-  //const [popupPlayerData, setPopupPlayerData] = useState<PlayerType>();
   const popupPlayerData = useMemo(() => {
     return getPlayerById(players, popupState?.player_id)
   }, [players, popupState?.player_id])
@@ -39,7 +36,7 @@ const CharacterPopup = () => {
 
       if (!popupRef?.current?.contains(event.target)) {
         dispatch(
-          gameActions.setCharacterPopupInfo({
+          setCharacterPopupInfo({
             open: false,
             player_id: '',
             position: {

@@ -1,25 +1,22 @@
-import { useAppDispatch } from "@/store"
-import { gameActions } from "@/store/reducers/game-slice"
-import Image from "next/image"
-import React from "react"
+import { useDispatch, useSelector } from 'react-redux'
+import { setCharacterPopupInfo } from '../../../stores/game-store'
+import React from 'react'
 import clsx from 'clsx'
 
 const Character = ({ character_image, player_data }) => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
 
   const hp_bar =
     player_data?.player_hp > 2400
-      ? "high"
+      ? 'high'
       : player_data?.player_hp > 1000
-      ? "medium"
+      ? 'medium'
       : player_data?.player_hp > 0
-      ? "low"
-      : "dead" // dead
+      ? 'low'
+      : 'dead' // dead
 
-  // TODO: hp bar design for dead
-
-  const handleCharacterClick = elm => {
-    const playerId = elm?.currentTarget?.getAttribute("data-player-id")
+  const handleCharacterClick = (elm) => {
+    const playerId = elm?.currentTarget?.getAttribute('data-player-id')
 
     if (!playerId) {
       console.error("player id doesn't exists")
@@ -29,14 +26,14 @@ const Character = ({ character_image, player_data }) => {
     const elmPositions = elm?.currentTarget?.getBoundingClientRect()
 
     dispatch(
-      gameActions.setCharacterPopupInfo({
+      setCharacterPopupInfo({
         open: true,
         player_id: playerId,
         position: {
           x: elmPositions.x,
-          y: elmPositions.y
-        }
-      })
+          y: elmPositions.y,
+        },
+      }),
     )
 
     //const playerInfo = getPlayerById(players, playerId);
@@ -47,29 +44,24 @@ const Character = ({ character_image, player_data }) => {
   }
 
   return (
-    <div className="chracterStyled"
+    <div
+      className='chracterStyled'
       data-player-id={player_data?.player_id}
-      hp_bar={hp_bar}
+      // hp_bar={hp_bar}
       onClick={handleCharacterClick}
     >
-      <Image
-        src={character_image}
-        width={20}
-        height={28}
-        alt="Character image"
-      />
+      <img src={character_image} alt='Character image' className='w-[28px] h-[28px]' />
       <div
-            className={clsx(
-              'w-full h-[5px] border-[3px] pointer-events-none',
-              {
-                'hp-bar-high': hp_bar === "high",
-                'hp-bar-medium': hp_bar === "medium",
-                'hp-bar-low': hp_bar === "low",
-              },
-            )}
-       ></div>
+        className={clsx('w-full h-[5px] border-[3px] pointer-events-none', {
+          'hp-bar-high': hp_bar === 'high',
+          'hp-bar-medium': hp_bar === 'medium',
+          'hp-bar-low': hp_bar === 'low',
+        })}
+      ></div>
     </div>
   )
 }
 
 export default Character
+
+// TODO: hp bar design for dead
