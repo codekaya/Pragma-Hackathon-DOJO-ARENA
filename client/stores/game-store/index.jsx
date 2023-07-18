@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-
+import Axios from 'axios'
 import { seperatePlayersByState } from '../../utils/player'
+import { headers, urlFetchAllGame, urlFetchGameWithId } from '../../services/configurl'
 
 const initialState = {
   current_player: {},
@@ -26,7 +27,32 @@ const initialState = {
   },
   accounts: [],
   wallet_connected: false,
+  current_game: {
+    result: {},
+    inProgress: false,
+  },
+
+  all_game: {
+    result: {},
+    inProgress: false,
+  },
 }
+
+export const fetchGameWithId = createAsyncThunk('game/fetchGameWithId', async (game_id) => {
+  const url = urlFetchGameWithId()
+  const res = await Axios.post(url, { game_id }, headers())
+  // console.log('RESSS', res.data)
+
+  return res.data
+})
+
+export const fetchAllGame = createAsyncThunk('game/fetchAllGame', async () => {
+  const url = urlFetchAllGame()
+  const res = await Axios.get(url, headers())
+  console.log('RESSS', res.data)
+
+  return res.data
+})
 
 export const { reducer, actions } = createSlice({
   name: 'game',
@@ -78,7 +104,29 @@ export const { reducer, actions } = createSlice({
       state.wallet_connected = action.payload
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchGameWithId.fulfilled, (state, action) => {
+      state.current_game = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchGameWithId.pending, (state, action) => {
+        state.current_game = { ...state.current_game, inProgress: true }
+      }),
+      builder.addCase(fetchGameWithId.rejected, (state, action) => {
+        state.current_game = { ...state.current_game, inProgress: false }
+        console.log('Hata:', action.error.message) // Hata mesajını konsola yazdırabilirsiniz
+      })
+
+    builder.addCase(fetchAllGame.fulfilled, (state, action) => {
+      state.all_game = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchAllGame.pending, (state, action) => {
+        state.all_game = { ...state.all_game, inProgress: true }
+      }),
+      builder.addCase(fetchAllGame.rejected, (state, action) => {
+        state.all_game = { ...state.all_game, inProgress: false }
+        console.log('Hata:', action.error.message) // Hata mesajını konsola yazdırabilirsiniz
+      })
+  },
 })
 
 export const {

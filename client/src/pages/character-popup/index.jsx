@@ -77,8 +77,7 @@ const CharacterPopup = () => {
           {popupPlayerData?.character_image && (
             <img
               src={popupPlayerData?.character_image}
-              width={29}
-              height={34}
+              className='w-[29px] h-[34px]'
               alt='Character Image'
             />
           )}

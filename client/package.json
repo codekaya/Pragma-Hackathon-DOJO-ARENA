@@ -11,6 +11,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@starknet-react/core": "^0.18.0",
+    "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "ethers": "^6.6.4",
     "get-starknet": "^3.0.1",

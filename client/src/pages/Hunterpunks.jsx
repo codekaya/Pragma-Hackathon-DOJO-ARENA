@@ -17,12 +17,22 @@ import {
   setHistory,
   setAccounts,
   setWalletConnected,
+  fetchGameWithId,
+  fetchAllGame,
 } from '../../stores/game-store'
 
 export default function HunterPunks() {
   const dispatch = useDispatch()
 
   const gameState = useSelector((state) => state.game)
+  const {
+    current_game: { result: current_game },
+    current_game: { inProgress: current_game_Inprogress },
+  } = useSelector((state) => state.game)
+
+  console.log('GAMEE DATA', current_game)
+  console.log('GAMEE PROGRESS', current_game_Inprogress)
+
   let didInit = false
 
   const getPlayers = (playersLength) => {
@@ -51,6 +61,13 @@ export default function HunterPunks() {
 
     dispatch(setHistory(tmpHistory))
   }, [dispatch, gameState.players])
+
+  useEffect(() => {
+    // if (current_game && !current_game.length && !current_game_Inprogress) {
+    dispatch(fetchGameWithId(3))
+    dispatch(fetchAllGame())
+    // }
+  }, [])
 
   //temporary generate players
   useEffect(() => {
@@ -138,7 +155,7 @@ export default function HunterPunks() {
           </div>
         </div>
         <div className='w-[640px] flex-shrink-0'>
-          <GameTopInfo />
+          <GameTopInfo /> //TODO HERE
           <GameArea />
           <div className='game-actions'>
             {' '}

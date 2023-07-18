@@ -57,7 +57,7 @@ const CurrentPlayerInfo = () => {
   return (
     <>
       <div className='h-[62px] flex jst-center items-center '>
-        <img src='/public/logo.png' width={222} height={34} alt='HunterPunks Logo' priority />
+        <img src='/public/logo.png' className='w-[222px] h-[34px]' alt='HunterPunks Logo' />
       </div>
       <div className='flex relative w-full h-[151px] items-center jst-center '>
         <div className='cardBgStyledIcon ' />
@@ -67,8 +67,7 @@ const CurrentPlayerInfo = () => {
             width={80}
             height={90}
             alt='Player Icon'
-            priority
-            className=' absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'
+            className='w-[80px] h-[90px] absolute -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'
           />
         )}
       </div>

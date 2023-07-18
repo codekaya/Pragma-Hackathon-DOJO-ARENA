@@ -30,8 +30,7 @@ const GameHistory = () => {
               {item?.player1?.character_image && (
                 <img
                   src={item?.player1?.character_image}
-                  width={13}
-                  height={17}
+                  className='w-[13px] h-[17px]'
                   alt='Character Icon'
                 />
               )}
@@ -54,8 +53,7 @@ const GameHistory = () => {
                       ? dead_icon
                       : item?.player2?.character_image
                   }
-                  width={12.24}
-                  height={16}
+                  className='w-[12.24px] h-4'
                   alt='Character Icon'
                 />
               )}
@@ -81,8 +79,7 @@ const GameHistory = () => {
               {item?.player?.character_image && (
                 <img
                   src={item?.player?.character_image}
-                  width={13}
-                  height={17}
+                  className='w-[13px] h-[17px]'
                   alt='Character Icon'
                 />
               )}
@@ -115,6 +112,7 @@ const GameHistory = () => {
                   }
                   width={12.24}
                   height={16}
+                  className='w-[12.24px] h-4'
                   alt='Character Icon'
                 />
               )}
