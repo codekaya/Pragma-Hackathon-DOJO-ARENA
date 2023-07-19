@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 const GameTopInfo = ({ data }) => {
   const [remainingTime, setRemainingTime] = useState('')
 
-  // console.log('DATA', data)
-
   useEffect(() => {
     if (data && data.current_tour && data.start_time && data.turn_duration) {
       function calculateRemainingTime(startTime, currentTour, turnDuration) {

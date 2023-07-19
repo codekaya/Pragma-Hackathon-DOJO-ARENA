@@ -1,12 +1,49 @@
 import { RightIcon } from '../../components/Icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Button from '../../styles/button'
 import dead_icon from '/icons/character-dead-icon.svg'
 const GameHistory = () => {
-  const { history } = useSelector((state) => state.game)
+  // const {
+  //   history,
+  //   current_game: { result: current_game },
+  // } = useSelector((state) => state.game)
+  const {
+    history,
+    current_game: { result: current_game },
+  } = useSelector((state) => state.game)
 
   const [activeTab, setActiveTab] = useState('attacks')
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
+
+  useEffect(() => {
+    const checkButtonStatus = () => {
+      const currentTime = Math.floor(Date.now() / 1000)
+      let endTime = 0
+
+      if (current_game?.user?.start_time && current_game.user.turn_duration) {
+        endTime = parseInt(current_game.user.start_time) + parseInt(current_game.user.turn_duration)
+      } else {
+        endTime = currentTime * 100
+      }
+
+      if (currentTime <= endTime) {
+        setIsButtonDisabled(true)
+      } else {
+        setIsButtonDisabled(false)
+      }
+    }
+
+    checkButtonStatus()
+
+    const interval = setInterval(() => {
+      checkButtonStatus()
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [current_game])
 
   const renderAttacksHistory = (items) => {
     return items?.map((item, index) => {
@@ -135,36 +172,51 @@ const GameHistory = () => {
   }
 
   return (
-    <div className='relative flex w-full flex-col h-[467px]'>
-      <div className='cardBgStyledEmpty' />
-      <div className='text-[20px] text-white text-opacity-[85] text-center font-bold pt-4'>
-        Game History
-      </div>
+    <>
+      <div className='relative flex w-full flex-col h-[467px]'>
+        <div className='cardBgStyledEmpty' />
+        <div className='text-[20px] text-white text-opacity-[85] text-center font-bold pt-4'>
+          Game History
+        </div>
 
-      <div className='flex gap-[6px] mx-[9px] mt-6 mb-0'>
-        <Button mode='history' active={activeTab === 'hunts'} onClick={() => setActiveTab('hunts')}>
-          Hunts
-        </Button>
-        <Button mode='history' active={activeTab === 'hides'} onClick={() => setActiveTab('hides')}>
-          Hides
-        </Button>
-        <Button
-          mode='history'
-          active={activeTab === 'attacks'}
-          onClick={() => setActiveTab('attacks')}
-        >
-          Attacks!
-        </Button>
-      </div>
+        <div className='flex gap-[6px] mx-[9px] mt-6 mb-0'>
+          <Button
+            mode='history'
+            active={activeTab === 'hunts'}
+            onClick={() => setActiveTab('hunts')}
+          >
+            Hunts
+          </Button>
+          <Button
+            mode='history'
+            active={activeTab === 'hides'}
+            onClick={() => setActiveTab('hides')}
+          >
+            Hides
+          </Button>
+          <Button
+            mode='history'
+            active={activeTab === 'attacks'}
+            onClick={() => setActiveTab('attacks')}
+          >
+            Attacks!
+          </Button>
+        </div>
 
-      <div className='relative w-full h-full text-white flex overflow-hidden mt-2'>
-        <div className='history-content'>
-          <table>
-            <tbody>{renderHistory()}</tbody>
-          </table>
+        <div className='relative w-full h-full text-white flex overflow-hidden mt-2'>
+          <div className='history-content'>
+            <table>
+              <tbody>{renderHistory()}</tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
+      <div className='mt-[15px]' onClick={() => {}}>
+        <Button disabled={isButtonDisabled} onClick={() => {}}>
+          Next turn
+        </Button>
+      </div>
+    </>
   )
 }
 

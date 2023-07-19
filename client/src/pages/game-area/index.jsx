@@ -13,8 +13,6 @@ import Button from '../../styles/button'
 const GameArea = () => {
   const gameState = useSelector((state) => state.game)
 
-  console.log('HUNTINGG', gameState.game_hunting.result)
-
   const handleHuntClick = async () => {
     //console.log(web3Obj.nftContract);
     //console.log(

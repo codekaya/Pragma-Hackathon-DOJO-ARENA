@@ -7,7 +7,6 @@ const MAX_HP = 4000
 const HP_BAR_COUNT = 20
 const HP_PER_BAR = MAX_HP / HP_BAR_COUNT
 
-//TODO DONE
 const CurrentPlayerInfo = () => {
   const [playerName, setPlayerName] = useState('')
 

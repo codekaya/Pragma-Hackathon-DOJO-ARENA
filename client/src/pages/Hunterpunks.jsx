@@ -46,7 +46,6 @@ export default function HunterPunks() {
   } = useSelector((state) => state.game)
 
   let didInit = false
-  console.log('game_attacks', gameState)
 
   const getPlayers = (playersLength) => {
     const c_player = createCurrentPlayer()
@@ -182,7 +181,7 @@ export default function HunterPunks() {
           </div>
         </div>
         <div className='w-[640px] flex-shrink-0'>
-          <GameTopInfo data={current_game?.user} /> //TODO HERE
+          <GameTopInfo data={current_game?.user} />
           <GameArea />
           <div className='game-actions'>
             {' '}
