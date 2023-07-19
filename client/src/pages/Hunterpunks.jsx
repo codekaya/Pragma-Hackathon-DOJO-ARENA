@@ -19,21 +19,34 @@ import {
   setWalletConnected,
   fetchGameWithId,
   fetchAllGame,
+  fetchPlayerAliveWithGameId,
+  fetchGameAttacksWithGameId,
+  fetchGameHidingWithGameId,
+  fetchGameHuntingWithGameId,
 } from '../../stores/game-store'
+import { useParams } from 'react-router-dom'
 
 export default function HunterPunks() {
+  const { gameId } = useParams()
+
   const dispatch = useDispatch()
 
   const gameState = useSelector((state) => state.game)
   const {
     current_game: { result: current_game },
-    current_game: { inProgress: current_game_Inprogress },
+    current_game: { inProgress: current_game_inprogress },
+    players_alive: { result: players_alive },
+    players_alive: { inProgress: players_alive_inprogress },
+    game_attacks: { result: game_attacks },
+    game_attacks: { inProgress: game_attacks_inprogress },
+    game_hiding: { result: game_hiding },
+    game_hiding: { inProgress: game_hiding_inprogress },
+    game_hunting: { result: game_hunting },
+    game_hunting: { inProgress: game_hunting_inprogress },
   } = useSelector((state) => state.game)
 
-  console.log('GAMEE DATA', current_game)
-  console.log('GAMEE PROGRESS', current_game_Inprogress)
-
   let didInit = false
+  console.log('game_attacks', gameState)
 
   const getPlayers = (playersLength) => {
     const c_player = createCurrentPlayer()
@@ -63,10 +76,26 @@ export default function HunterPunks() {
   }, [dispatch, gameState.players])
 
   useEffect(() => {
-    // if (current_game && !current_game.length && !current_game_Inprogress) {
-    dispatch(fetchGameWithId(3))
-    dispatch(fetchAllGame())
-    // }
+    if (current_game && !current_game.length && !current_game_inprogress) {
+      dispatch(fetchGameWithId(gameId && gameId))
+      // dispatch(fetchAllGame())
+    }
+
+    if (players_alive && !players_alive.length && !players_alive_inprogress) {
+      dispatch(fetchPlayerAliveWithGameId(gameId && gameId))
+    }
+
+    if (game_attacks && !game_attacks.length && !game_attacks_inprogress) {
+      dispatch(fetchGameAttacksWithGameId(gameId && gameId))
+    }
+
+    if (game_hiding && !game_hiding.length && !game_hiding_inprogress) {
+      dispatch(fetchGameHidingWithGameId(gameId && gameId))
+    }
+
+    if (game_hunting && !game_hunting.length && !game_hunting_inprogress) {
+      dispatch(fetchGameHuntingWithGameId(gameId && gameId))
+    }
   }, [])
 
   //temporary generate players
@@ -113,9 +142,7 @@ export default function HunterPunks() {
         <img
           src='/main-bg.png'
           className='absolute min-h-[100vh] min-w-[100vw] left-0 top-0 right-0 bottom-0 text-transparent main-bg-img after:main-bg-after'
-          fill
           alt='Background Image'
-          priority
         />
 
         <div className='absolute min-h-[100vh] min-w-[100vw] left-0 top-0 right-0 bottom-0 text-transparent main-bg-after'></div>
@@ -155,7 +182,7 @@ export default function HunterPunks() {
           </div>
         </div>
         <div className='w-[640px] flex-shrink-0'>
-          <GameTopInfo /> //TODO HERE
+          <GameTopInfo data={current_game?.user} /> //TODO HERE
           <GameArea />
           <div className='game-actions'>
             {' '}

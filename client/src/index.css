@@ -95,7 +95,7 @@
     width: 100%;
     height: 406px;
     position: relative;
-    background: url('/public/game-area-bg.png');
+    background: url('/game-area-bg.png');
     background-repeat: repeat;
   }
 

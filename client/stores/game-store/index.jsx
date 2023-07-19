@@ -1,7 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import Axios from 'axios'
 import { seperatePlayersByState } from '../../utils/player'
-import { headers, urlFetchAllGame, urlFetchGameWithId } from '../../services/configurl'
+import {
+  headers,
+  urlFetchAllGame,
+  urlFetchGameAttacksWithId,
+  urlFetchGameHidingWithId,
+  urlFetchGameHuntingWithId,
+  urlFetchGameWithId,
+  urlFetchPlayerAliveGameWithId,
+} from '../../services/configurl'
 
 const initialState = {
   current_player: {},
@@ -36,12 +44,30 @@ const initialState = {
     result: {},
     inProgress: false,
   },
+  players_alive: {
+    result: {},
+    inProgress: false,
+  },
+
+  game_attacks: {
+    result: {},
+    inProgress: false,
+  },
+
+  game_hiding: {
+    result: {},
+    inProgress: false,
+  },
+
+  game_hunting: {
+    result: {},
+    inProgress: false,
+  },
 }
 
-export const fetchGameWithId = createAsyncThunk('game/fetchGameWithId', async (game_id) => {
+export const fetchGameWithId = createAsyncThunk('game/fetchGameWithId', async (gameId) => {
   const url = urlFetchGameWithId()
-  const res = await Axios.post(url, { game_id }, headers())
-  // console.log('RESSS', res.data)
+  const res = await Axios.post(url, { game_id: gameId }, headers())
 
   return res.data
 })
@@ -49,10 +75,49 @@ export const fetchGameWithId = createAsyncThunk('game/fetchGameWithId', async (g
 export const fetchAllGame = createAsyncThunk('game/fetchAllGame', async () => {
   const url = urlFetchAllGame()
   const res = await Axios.get(url, headers())
-  console.log('RESSS', res.data)
 
-  return res.data
+  return res
 })
+
+export const fetchPlayerAliveWithGameId = createAsyncThunk(
+  'game/fetchPlayerAliveWithGameId',
+  async (gameId) => {
+    const url = urlFetchPlayerAliveGameWithId()
+    const res = await Axios.post(url, { game_id: gameId }, headers())
+
+    return res?.data?.user
+  },
+)
+
+export const fetchGameAttacksWithGameId = createAsyncThunk(
+  'game/fetchGameAttacksWithGameId',
+  async (gameId) => {
+    const url = urlFetchGameAttacksWithId()
+    const res = await Axios.post(url, { game_id: gameId }, headers())
+
+    return res?.data?.user
+  },
+)
+
+export const fetchGameHidingWithGameId = createAsyncThunk(
+  'game/fetchGameHidingWithGameId',
+  async (gameId) => {
+    const url = urlFetchGameHidingWithId()
+    const res = await Axios.post(url, { game_id: gameId }, headers())
+
+    return res?.data?.user
+  },
+)
+
+export const fetchGameHuntingWithGameId = createAsyncThunk(
+  'game/fetchGameHuntingWithGameId',
+  async (gameId) => {
+    const url = urlFetchGameHuntingWithId()
+    const res = await Axios.post(url, { game_id: gameId }, headers())
+
+    return res?.data?.user
+  },
+)
 
 export const { reducer, actions } = createSlice({
   name: 'game',
@@ -113,7 +178,6 @@ export const { reducer, actions } = createSlice({
       }),
       builder.addCase(fetchGameWithId.rejected, (state, action) => {
         state.current_game = { ...state.current_game, inProgress: false }
-        console.log('Hata:', action.error.message) // Hata mesajını konsola yazdırabilirsiniz
       })
 
     builder.addCase(fetchAllGame.fulfilled, (state, action) => {
@@ -124,7 +188,46 @@ export const { reducer, actions } = createSlice({
       }),
       builder.addCase(fetchAllGame.rejected, (state, action) => {
         state.all_game = { ...state.all_game, inProgress: false }
-        console.log('Hata:', action.error.message) // Hata mesajını konsola yazdırabilirsiniz
+      })
+
+    builder.addCase(fetchPlayerAliveWithGameId.fulfilled, (state, action) => {
+      state.players_alive = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchPlayerAliveWithGameId.pending, (state, action) => {
+        state.players_alive = { ...state.players_alive, inProgress: true }
+      }),
+      builder.addCase(fetchPlayerAliveWithGameId.rejected, (state, action) => {
+        state.players_alive = { ...state.players_alive, inProgress: false }
+      })
+
+    builder.addCase(fetchGameAttacksWithGameId.fulfilled, (state, action) => {
+      state.game_attacks = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchGameAttacksWithGameId.pending, (state, action) => {
+        state.game_attacks = { ...state.game_attacks, inProgress: true }
+      }),
+      builder.addCase(fetchGameAttacksWithGameId.rejected, (state, action) => {
+        state.game_attacks = { ...state.game_attacks, inProgress: false }
+      })
+
+    builder.addCase(fetchGameHidingWithGameId.fulfilled, (state, action) => {
+      state.game_hiding = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchGameHidingWithGameId.pending, (state, action) => {
+        state.game_hiding = { ...state.game_hiding, inProgress: true }
+      }),
+      builder.addCase(fetchGameHidingWithGameId.rejected, (state, action) => {
+        state.game_hiding = { ...state.game_hiding, inProgress: false }
+      })
+
+    builder.addCase(fetchGameHuntingWithGameId.fulfilled, (state, action) => {
+      state.game_hunting = { result: action.payload, inProgress: false }
+    }),
+      builder.addCase(fetchGameHuntingWithGameId.pending, (state, action) => {
+        state.game_hunting = { ...state.game_hunting, inProgress: true }
+      }),
+      builder.addCase(fetchGameHuntingWithGameId.rejected, (state, action) => {
+        state.game_hunting = { ...state.game_hunting, inProgress: false }
       })
   },
 })

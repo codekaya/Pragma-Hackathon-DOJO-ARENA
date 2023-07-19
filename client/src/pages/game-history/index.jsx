@@ -2,7 +2,7 @@ import { RightIcon } from '../../components/Icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import Button from '../../styles/button'
-import dead_icon from '../../../public/icons/character-dead-icon.svg'
+import dead_icon from '/icons/character-dead-icon.svg'
 const GameHistory = () => {
   const { history } = useSelector((state) => state.game)
 
@@ -20,7 +20,6 @@ const GameHistory = () => {
 
       return (
         <tr key={'history-attack-item_' + index} className='h-item-attack'>
-          {' '}
           <td className='time'>{item?.time}</td>
           <td className={'hp-change-1' + (p1_hp_positive ? ' green' : ' red')}>
             {(p1_hp_positive ? '+' : '') + (item?.player1_hp_change || '')}
@@ -107,7 +106,7 @@ const GameHistory = () => {
                 <img
                   src={
                     item?.player_hp_change === 'dead'
-                      ? '/public/icons/character-dead-icon.svg'
+                      ? '/icons/character-dead-icon.svg'
                       : item?.player?.character_image
                   }
                   width={12.24}

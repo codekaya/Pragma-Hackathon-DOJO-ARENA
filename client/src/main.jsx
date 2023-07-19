@@ -25,7 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path='/survivor' element={<Survivor />} />
             <Route path='/start' element={<Start />} />
             <Route path='/games' element={<Games />} />
-            <Route path='/hunterpunks' element={<HunterPunks />} />
+            <Route path='/hunterpunks/:gameId' element={<HunterPunks />} />
           </Routes>
         </BrowserRouter>
       </StarknetConfig>

@@ -13,6 +13,8 @@ import Button from '../../styles/button'
 const GameArea = () => {
   const gameState = useSelector((state) => state.game)
 
+  console.log('HUNTINGG', gameState.game_hunting.result)
+
   const handleHuntClick = async () => {
     //console.log(web3Obj.nftContract);
     //console.log(
@@ -29,25 +31,29 @@ const GameArea = () => {
             <div className='game-area-section'>
               <div className='game-area-section-title'>Hunting</div>
               <div className='game-area-section-players'>
-                {gameState?.players_by_states?.hunting?.map((player) => (
-                  <Character
-                    key={'character_' + player?.player_id}
-                    character_image={player?.character_image}
-                    player_data={player}
-                  />
-                ))}
+                {gameState?.game_hunting?.result?.length &&
+                  gameState.game_hunting.result.map((player) => (
+                    <Character
+                      key={'character_' + player?.player_id}
+                      // character_image={player?.character_image}
+                      character_image='/public/characters/doctor.png'
+                      player_data={player}
+                    />
+                  ))}
               </div>
             </div>
             <div className='game-area-section'>
               <div className='game-area-section-title'>Hiding</div>
               <div className='game-area-section-players'>
-                {gameState?.players_by_states?.hiding?.map((player) => (
-                  <Character
-                    key={'character_' + player?.player_id}
-                    character_image={player?.character_image}
-                    player_data={player}
-                  />
-                ))}
+                {gameState?.game_hiding?.result?.length &&
+                  gameState.game_hiding.result.map((player) => (
+                    <Character
+                      key={'character_' + player?.player_id}
+                      // character_image={player?.character_image}
+                      character_image='/public/characters/david.png'
+                      player_data={player}
+                    />
+                  ))}
               </div>
             </div>
           </div>
@@ -55,25 +61,29 @@ const GameArea = () => {
             <div className='game-area-section'>
               <div className='game-area-section-title'>Playing</div>
               <div className='game-area-section-players'>
-                {gameState?.players_by_states?.playing?.map((player) => (
-                  <Character
-                    key={'character_' + player?.player_id}
-                    character_image={player?.character_image}
-                    player_data={player}
-                  />
-                ))}
+                {gameState?.players_alive?.result?.length &&
+                  gameState.players_alive.result.map((player) => (
+                    <Character
+                      key={'character_' + player?.player_id}
+                      // character_image={player?.character_image} //TODO pixel kısımları
+                      character_image='/public/characters/david.png'
+                      player_data={player}
+                    />
+                  ))}
               </div>
             </div>
             <div className='game-area-section'>
               <div className='game-area-section-title'>Attacking</div>
               <div className='game-area-section-players'>
-                {gameState?.players_by_states?.attacking?.map((player) => (
-                  <Character
-                    key={'character_' + player?.player_id}
-                    character_image={player?.character_image}
-                    player_data={player}
-                  />
-                ))}
+                {gameState?.game_attacks?.result?.length &&
+                  gameState.game_attacks.result.map((player) => (
+                    <Character
+                      key={'character_' + player?.player_id}
+                      // character_image={player?.character_image}
+                      character_image='/public/characters/david.png'
+                      player_data={player}
+                    />
+                  ))}
               </div>
             </div>
           </div>

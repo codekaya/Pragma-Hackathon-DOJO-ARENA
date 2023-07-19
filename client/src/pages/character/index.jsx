@@ -7,11 +7,11 @@ const Character = ({ character_image, player_data }) => {
   const dispatch = useDispatch()
 
   const hp_bar =
-    player_data?.player_hp > 2400
+    player_data?.health > 2400
       ? 'high'
-      : player_data?.player_hp > 1000
+      : player_data?.health > 1000
       ? 'medium'
-      : player_data?.player_hp > 0
+      : player_data?.health > 0
       ? 'low'
       : 'dead' // dead
 

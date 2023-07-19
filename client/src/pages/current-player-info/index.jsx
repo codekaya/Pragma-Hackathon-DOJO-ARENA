@@ -57,7 +57,7 @@ const CurrentPlayerInfo = () => {
   return (
     <>
       <div className='h-[62px] flex jst-center items-center '>
-        <img src='/public/logo.png' className='w-[222px] h-[34px]' alt='HunterPunks Logo' />
+        <img src='/logo.png' className='w-[222px] h-[34px]' alt='HunterPunks Logo' />
       </div>
       <div className='flex relative w-full h-[151px] items-center jst-center '>
         <div className='cardBgStyledIcon ' />

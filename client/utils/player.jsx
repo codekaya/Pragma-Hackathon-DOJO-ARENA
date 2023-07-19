@@ -1,17 +1,17 @@
 const rand_character_image = () =>
   [
-    '/public/characters/albert.png',
-    '/public/characters/blondie.png',
-    '/public/characters/clown.png',
-    '/public/characters/david.png',
-    '/public/characters/developer.png',
-    '/public/characters/doctor.png',
-    '/public/characters/dummy.png',
-    '/public/characters/gray.png',
-    '/public/characters/guy.png',
-    '/public/characters/Layer 22.png',
-    '/public/characters/liberty.png',
-    '/public/characters/playboy.png',
+    '/characters/albert.png',
+    '/characters/blondie.png',
+    '/characters/clown.png',
+    '/characters/david.png',
+    '/characters/developer.png',
+    '/characters/doctor.png',
+    '/characters/dummy.png',
+    '/characters/gray.png',
+    '/characters/guy.png',
+    '/characters/Layer 22.png',
+    '/characters/liberty.png',
+    '/characters/playboy.png',
   ][Math.floor(Math.random() * 12)]
 
 const rand_current_state = () =>
